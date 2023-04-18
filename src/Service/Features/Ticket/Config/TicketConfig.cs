@@ -14,5 +14,8 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace ParkingSpace.Features.Ticket.Config;
 
 public class TicketConfig : IEntityTypeConfiguration<Entities.Ticket> {
-    public void Configure(EntityTypeBuilder<Entities.Ticket> builder) { }
+    public void Configure(EntityTypeBuilder<Entities.Ticket> builder) {
+        builder.Property(x => x.TicketNumber).IsRequired();
+        builder.HasIndex(x => x.TicketNumber).IsUnique();
+    }
 }

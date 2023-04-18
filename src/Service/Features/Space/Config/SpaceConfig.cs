@@ -15,5 +15,8 @@ namespace ParkingSpace.Features.Space.Config;
 
 public class SpaceConfig : IEntityTypeConfiguration<Entities.Space> {
 
-    public void Configure(EntityTypeBuilder<Entities.Space> builder) { }
+    public void Configure(EntityTypeBuilder<Entities.Space> builder) {
+        builder.Property(x => x.Description).IsRequired();
+        builder.HasIndex(x => x.Description).IsUnique();
+    }
 }

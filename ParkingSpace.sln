@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace.Common", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace", "src\Service\ParkingSpace.csproj", "{BB542898-6912-4433-A4C8-04BA000F8325}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8CCDCB01-3302-4031-8258-2E37A77CDE9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace.Tests", "tests\Service\ParkingSpace.Tests.csproj", "{5BCB2E24-DD71-42D9-964A-EC047ED20A33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +30,14 @@ Global
 		{BB542898-6912-4433-A4C8-04BA000F8325}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB542898-6912-4433-A4C8-04BA000F8325}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB542898-6912-4433-A4C8-04BA000F8325}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23} = {37B23DD2-DA19-4CB2-91E6-AE58B3C88F07}
 		{BB542898-6912-4433-A4C8-04BA000F8325} = {37B23DD2-DA19-4CB2-91E6-AE58B3C88F07}
+		{5BCB2E24-DD71-42D9-964A-EC047ED20A33} = {8CCDCB01-3302-4031-8258-2E37A77CDE9E}
 	EndGlobalSection
 EndGlobal

@@ -26,6 +26,7 @@ public class MainContext : DbContext {
         if (modelBuilder == null)
             throw new ArgumentNullException(nameof(modelBuilder));
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
+        (new DataSeeder(modelBuilder)).Run();
         
         base.OnModelCreating(modelBuilder);
     }

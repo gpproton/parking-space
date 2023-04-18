@@ -16,8 +16,7 @@ namespace ParkingSpace.Features.Vehicle.Config;
 public class VehicleConfig : IEntityTypeConfiguration<Entities.Vehicle> {
 
     public void Configure(EntityTypeBuilder<Entities.Vehicle> builder) {
-        builder.HasAlternateKey(x => new {
-            x.RegistrationNo
-        });
+        builder.Property(x => x.RegistrationNo).IsRequired();
+        builder.HasIndex(x => x.RegistrationNo).IsUnique();
     }
 }

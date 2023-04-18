@@ -14,6 +14,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace ParkingSpace.Features.Price.Config;
 
 public class PriceConfig : IEntityTypeConfiguration<Entities.Price> {
-
-    public void Configure(EntityTypeBuilder<Entities.Price> builder) { }
+    public void Configure(EntityTypeBuilder<Entities.Price> builder) {
+        builder
+        .HasAlternateKey(x => new {
+            x.SpotId, x.MaximumTime
+        });
+    }
 }

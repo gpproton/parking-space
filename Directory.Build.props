@@ -22,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DotnetVersion>6.0.0</DotnetVersion>
+    <DotnetVersion>6.0.16</DotnetVersion>
     <SwaggerVersion>6.5.0</SwaggerVersion>
   </PropertyGroup>
 

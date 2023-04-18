@@ -18,9 +18,17 @@ namespace ParkingSpace.Features.Space.Config;
 
 public class SpotConfig : IEntityTypeConfiguration<Spot> {
     public void Configure(EntityTypeBuilder<Spot> builder) {
+        // INFO: Enum to string value converter and comparer
         builder
         .Property(e => e.VehicleType)
         .HasConversion(new EnumCollectionJsonValueConverter<VehicleType>())
         .Metadata.SetValueComparer(new CollectionValueComparer<VehicleType>());
+        
+        // INFO: Adds unique to spot based on the properties.
+        builder
+        .HasAlternateKey(x => new {
+            x.SpaceId,
+            x.VehicleType
+        });
     }
 }
