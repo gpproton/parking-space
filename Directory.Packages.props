@@ -1,15 +1,18 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    </PropertyGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
-        <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.3" />
-        <PackageVersion Include="AspNetCore.SpaYarp" Version="1.1.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="$(SwaggerVersion)" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="$(SwaggerVersion)" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.ReDoc" Version="$(SwaggerVersion)" />
+    <PackageVersion Include="AspNetCore.SpaYarp" Version="1.1.0" />
+  </ItemGroup>
 </Project>
