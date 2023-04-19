@@ -15,40 +15,38 @@ using ParkingSpace.Interfaces;
 namespace ParkingSpace.Features.Space;
 
 public class SpaceModule : IModule {
-
     public IServiceCollection RegisterApiModule(IServiceCollection services) {
         services.AddScoped<ISpaceService, SpaceService>();
 
         return services;
     }
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        
         const string name = nameof(Space);
         var url = $"{ServiceConstants.Root}/{name.ToLower()}";
         
         endpoints.MapGet(url, (PageFilter? filter, [FromServices] ISpaceService service) =>
             service.GetAllAsync(filter)
-        ).WithName("GetSpace")
+        ).WithName($"Get{name}")
         .WithTags(name);
         
         endpoints.MapGet($"{url}/:id", ([FromServices] ISpaceService service, Guid id) =>
         service.GetByIdAsync(id)
-        ).WithName("GetSpaceById")
+        ).WithName($"Get{name}ById")
         .WithTags(name);
         
         endpoints.MapPost(url, ([FromServices] ISpaceService service, [FromBody] Entities.Space item) =>
         service.AddAsync(item)        
-        ).WithName("CreateSpace")
+        ).WithName($"Create{name}")
         .WithTags(name);
         
         endpoints.MapPut(url, ([FromServices] ISpaceService service, [FromBody] Entities.Space item) =>
         service.UpdateAsync(item)        
-        ).WithName("UpdateSpace")
+        ).WithName($"Update{name}")
         .WithTags(name);
         
         endpoints.MapDelete($"{url}/:id", ([FromServices] ISpaceService service, Guid id) =>
         service.ArchiveAsync(id)        
-        ).WithName("ArchiveSpace")
+        ).WithName($"Archive{name}")
         .WithTags(name);
 
         return endpoints;

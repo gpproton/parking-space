@@ -20,33 +20,34 @@ public class CustomerModule : IModule {
 
         return services;
     }
+    
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-        const string name = "Customer";
+        const string name = nameof(Entities.Customer);
         var url = $"{ServiceConstants.Root}/{name.ToLower()}";
         
         endpoints.MapGet(url, (PageFilter? filter, [FromServices] ICustomerService service) =>
         service.GetAllAsync(filter)
-        ).WithName("GetCustomer")
+        ).WithName($"Get{name}")
         .WithTags(name);
         
         endpoints.MapGet($"{url}/:id", ([FromServices] ICustomerService service, Guid id) =>
         service.GetByIdAsync(id)
-        ).WithName("GetCustomerById")
+        ).WithName($"Get{name}ById")
         .WithTags(name);
         
         endpoints.MapPost(url, ([FromServices] ICustomerService service, [FromBody] Entities.Customer item) =>
         service.AddAsync(item)        
-        ).WithName("CreateCustomer")
+        ).WithName($"Create{name}")
         .WithTags(name);
         
         endpoints.MapPut(url, ([FromServices] ICustomerService service, [FromBody] Entities.Customer item) =>
         service.UpdateAsync(item)        
-        ).WithName("UpdateCustomer")
+        ).WithName($"Update{name}")
         .WithTags(name);
         
         endpoints.MapDelete($"{url}/:id", ([FromServices] ICustomerService service, Guid id) =>
         service.ArchiveAsync(id)        
-        ).WithName("ArchiveCustomer")
+        ).WithName($"Archive{name}")
         .WithTags(name);
 
         return endpoints;

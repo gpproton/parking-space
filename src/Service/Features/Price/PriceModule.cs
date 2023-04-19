@@ -8,6 +8,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Microsoft.AspNetCore.Mvc;
+using ParkingSpace.Filters;
 using ParkingSpace.Interfaces;
 
 namespace ParkingSpace.Features.Price;
@@ -15,11 +17,39 @@ namespace ParkingSpace.Features.Price;
 public class PriceModule : IModule {
 
     public IServiceCollection RegisterApiModule(IServiceCollection services) {
+        services.AddScoped<IPriceService, PriceService>();
 
         return services;
     }
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
-
+        const string name = nameof(Entities.Price);
+        var url = $"{ServiceConstants.Root}/{name.ToLower()}";
+        
+        endpoints.MapGet(url, (PageFilter? filter, [FromServices] IPriceService service) =>
+        service.GetAllAsync(filter)
+        ).WithName($"Get{name}")
+        .WithTags(name);
+        
+        endpoints.MapGet($"{url}/:id", ([FromServices] IPriceService service, Guid id) =>
+        service.GetByIdAsync(id)
+        ).WithName($"Get{name}ById")
+        .WithTags(name);
+        
+        endpoints.MapPost(url, ([FromServices] IPriceService service, [FromBody] Entities.Price item) =>
+        service.AddAsync(item)        
+        ).WithName($"Create{name}")
+        .WithTags(name);
+        
+        endpoints.MapPut(url, ([FromServices] IPriceService service, [FromBody] Entities.Price item) =>
+        service.UpdateAsync(item)        
+        ).WithName($"Update{name}")
+        .WithTags(name);
+        
+        endpoints.MapDelete($"{url}/:id", ([FromServices] IPriceService service, Guid id) =>
+        service.ArchiveAsync(id)        
+        ).WithName($"Archive{name}")
+        .WithTags(name);
+        
         return endpoints;
     }
 }

@@ -8,6 +8,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Microsoft.AspNetCore.Mvc;
+using ParkingSpace.Filters;
 using ParkingSpace.Interfaces;
 
 namespace ParkingSpace.Features.Vehicle;
@@ -15,10 +17,33 @@ namespace ParkingSpace.Features.Vehicle;
 public class VehicleModule : IModule {
 
     public IServiceCollection RegisterApiModule(IServiceCollection services) {
+        services.AddScoped<IVehicleService, VehicleService>();
 
         return services;
     }
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
+        const string name = nameof(Vehicle);
+        var url = $"{ServiceConstants.Root}/{name.ToLower()}";
+        
+        endpoints.MapGet(url, (PageFilter? filter, [FromServices] IVehicleService service) =>
+        service.GetAllAsync(filter)
+        ).WithName($"Get{name}")
+        .WithTags(name);
+        
+        endpoints.MapGet($"{url}/:id", ([FromServices] IVehicleService service, Guid id) =>
+        service.GetByIdAsync(id)
+        ).WithName($"Get{name}ById")
+        .WithTags(name);
+        
+        endpoints.MapPost(url, ([FromServices] IVehicleService service, [FromBody] Entities.Vehicle item) =>
+        service.AddAsync(item)        
+        ).WithName($"Create{name}")
+        .WithTags(name);
+        
+        endpoints.MapPut(url, ([FromServices] IVehicleService service, [FromBody] Entities.Vehicle item) =>
+        service.UpdateAsync(item)        
+        ).WithName($"Update{name}")
+        .WithTags(name);
 
         return endpoints;
     }
