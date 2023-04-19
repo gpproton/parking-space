@@ -8,6 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace ParkingSpace.Features.Incident;
+namespace ParkingSpace.Data;
 
-public interface IIncidentService : IGenericService<Entities.Incident> { }
+public interface IDbInitializer {
+    Task Initialize(CancellationToken cancellationToken = default!);
+    
+    Task SeedData(CancellationToken cancellationToken = default!);
+}

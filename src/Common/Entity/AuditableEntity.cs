@@ -8,13 +8,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Text.Json.Serialization;
+
 namespace ParkingSpace.Common.Entity {
     public class AuditableEntity<TKey> : CoreEntity<TKey>, IAuditableEntity<TKey> {
+        [JsonIgnore]
         public TKey? CreatedBy { get; set; }
+        [JsonIgnore]
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
+        [JsonIgnore]
         public TKey? UpdatedBy { get; set; }
+        [JsonIgnore]
         public DateTimeOffset? UpdatedAt { get; set; }
+        [JsonIgnore]
         public TKey? ArchivedBy { get; set; }
+        [JsonIgnore]
         public DateTimeOffset? ArchivedAt { get; set; }
     }
 }

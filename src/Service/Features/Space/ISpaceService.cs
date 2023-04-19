@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
+// Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -8,8 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using ParkingSpace.Common.Response;
+
 namespace ParkingSpace.Features.Space;
 
 public interface ISpaceService : IGenericService<Entities.Space> {
-    
+    Task<Response<Entities.Space?>> GetByNameAsync(string name);
 }

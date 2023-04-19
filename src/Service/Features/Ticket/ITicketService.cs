@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
+// Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -8,6 +8,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using ParkingSpace.Common.Response;
+
 namespace ParkingSpace.Features.Ticket;
 
-public interface ITicketService : IGenericService<Entities.Ticket> { }
+public interface ITicketService : IGenericService<Entities.Ticket> {
+    Task<Response<decimal?>> GetPriceAsync<TId>(TId id) where TId : notnull;
+    Task<Response<Entities.Ticket?>> CompleteAsync<TId>(TId id) where TId : notnull;
+}

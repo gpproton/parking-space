@@ -8,7 +8,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json;
 
@@ -17,8 +16,9 @@ namespace ParkingSpace.Common.Converter;
 public class EnumCollectionJsonValueConverter<T> : ValueConverter<ICollection<T>, string> where T : Enum {
     public EnumCollectionJsonValueConverter() : base(
         v => JsonConvert
-        .SerializeObject(v.Select(e => e.ToString()).ToList()),
+        .SerializeObject(v.OrderBy(x => x).Select(e => e.ToString()).ToList()),
         v => JsonConvert
         .DeserializeObject<ICollection<string>>(v)!
+        .OrderBy(x => x)
         .Select(e => (T) Enum.Parse(typeof(T), e)).ToList()) { }
 }

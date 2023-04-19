@@ -18,5 +18,11 @@ public class VehicleConfig : IEntityTypeConfiguration<Entities.Vehicle> {
     public void Configure(EntityTypeBuilder<Entities.Vehicle> builder) {
         builder.Property(x => x.RegistrationNo).IsRequired();
         builder.HasIndex(x => x.RegistrationNo).IsUnique();
+
+        builder
+        .HasOne<Customer.Entities.Customer>(x => x.Customer)
+        .WithMany()
+        .HasForeignKey(f => f.CustomerId)
+        .OnDelete(DeleteBehavior.SetNull);
     }
 }

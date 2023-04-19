@@ -14,5 +14,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace ParkingSpace.Features.Incident.Config;
 
 public class IncidentConfig : IEntityTypeConfiguration<Entities.Incident> {
-    public void Configure(EntityTypeBuilder<Entities.Incident> builder) { }
+    public void Configure(EntityTypeBuilder<Entities.Incident> builder) {
+        builder
+        .HasOne<Space.Entities.Space>(x => x.Space)
+        .WithMany()
+        .HasForeignKey(f => f.SpaceId)
+        .OnDelete(DeleteBehavior.SetNull);
+        
+        builder
+        .HasOne<Vehicle.Entities.Vehicle>(x => x.Vehicle)
+        .WithMany()
+        .HasForeignKey(f => f.VehicleId)
+        .OnDelete(DeleteBehavior.SetNull);
+    }
 }

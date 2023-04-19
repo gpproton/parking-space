@@ -16,8 +16,7 @@ namespace ParkingSpace.Features.Customer.Config;
 public class CustomerConfig : IEntityTypeConfiguration<Entities.Customer> {
 
     public void Configure(EntityTypeBuilder<Entities.Customer> builder) {
-        builder.HasAlternateKey(x => new {
-            x.Phone, x.FirstName, x.LastName
-        });
+        builder.HasIndex(x => x.Phone).IsUnique();
+        builder.HasIndex(x => x.Email).IsUnique();
     }
 }

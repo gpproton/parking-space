@@ -15,5 +15,8 @@ namespace ParkingSpace.Features.Staff.Config;
 
 public class StaffConfig : IEntityTypeConfiguration<Entities.Staff> {
 
-    public void Configure(EntityTypeBuilder<Entities.Staff> builder) { }
+    public void Configure(EntityTypeBuilder<Entities.Staff> builder) {
+        builder.HasIndex(x => x.Username).IsUnique();
+        builder.HasIndex(x => x.Email).IsUnique();
+    }
 }

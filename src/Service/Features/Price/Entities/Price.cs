@@ -10,16 +10,17 @@
 
 using System.ComponentModel.DataAnnotations;
 using ParkingSpace.Common.Entity;
-using ParkingSpace.Features.Space.Entities;
+using ParkingSpace.Enums;
 
 namespace ParkingSpace.Features.Price.Entities;
 
 public class Price : AuditableEntity<Guid> {
     [Required]
     public string? Description { get; set; }
-    public Spot? Spot { get; set; }
-    public Guid? SpotId { get; set; }
-    public TimeSpan MaximumTime { get; set; }
+    public Space.Entities.Space? Space { get; set; }
+    public Guid? SpaceId { get; set; }
+    public double MaximumTime { get; set; }
+    public bool PerHour { get; set; }
     public decimal Amount { get; set; }
-    public string? Notes { get; set; }
+    public ICollection<VehicleType> VehicleType { get; set; } = default!;
 }

@@ -34,6 +34,7 @@ public static class DatabaseExtensions {
         
         services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(GenericRepository<>));
+        services.AddScoped<IDbInitializer, DbInitializer>();
         services.AddHostedService<MigrationService>();
 
         return services;

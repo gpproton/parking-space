@@ -30,5 +30,11 @@ public class SpotConfig : IEntityTypeConfiguration<Spot> {
             x.SpaceId,
             x.VehicleType
         });
+
+        builder
+        .HasOne<Entities.Space>(x => x.Space)
+        .WithMany(m => m.Spots)
+        .HasForeignKey(f => f.SpaceId)
+        .OnDelete(DeleteBehavior.SetNull);
     }
 }

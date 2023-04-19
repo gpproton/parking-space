@@ -28,7 +28,7 @@ public class MainContext : DbContext {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes()) { }
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
-        (new DataSeeder(modelBuilder)).Run();
+        // (new DataSeeder(modelBuilder)).Run();
         
         base.OnModelCreating(modelBuilder);
     }

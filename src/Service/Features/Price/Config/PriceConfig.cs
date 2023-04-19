@@ -10,14 +10,27 @@
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ParkingSpace.Common.Converter;
+using ParkingSpace.Enums;
 
 namespace ParkingSpace.Features.Price.Config;
 
 public class PriceConfig : IEntityTypeConfiguration<Entities.Price> {
     public void Configure(EntityTypeBuilder<Entities.Price> builder) {
         builder
+        .Property(e => e.VehicleType)
+        .HasConversion(new EnumCollectionJsonValueConverter<VehicleType>())
+        .Metadata.SetValueComparer(new CollectionValueComparer<VehicleType>());
+        
+        builder
         .HasAlternateKey(x => new {
-            x.SpotId, x.MaximumTime
+            x.SpaceId, x.MaximumTime, x.VehicleType
         });
+        
+        builder
+        .HasOne<Space.Entities.Space>(x => x.Space)
+        .WithMany(m => m.Prices)
+        .HasForeignKey(f => f.SpaceId)
+        .OnDelete(DeleteBehavior.SetNull);
     }
 }

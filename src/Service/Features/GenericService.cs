@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
+// Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ public abstract class GenericService<TEntity> : IGenericService<TEntity> where T
     public virtual async Task<PagedResponse<IEnumerable<TEntity>>> GetAllAsync(IPageFilter? filter) {
         var checkFilter = filter ?? new PageFilter();
         var query = _repository.GetQueryable(checkFilter);
-        var count = await query.CountAsync();
+        var count = await _repository.GetQueryable().CountAsync();
         var result = await query.ToListAsync();
         // var search = checkFilter.Search.Split(" ").ToList().Select(x => x.ToLower());
         

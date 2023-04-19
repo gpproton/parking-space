@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
+// Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -9,10 +9,22 @@
 // limitations under the License.
 
 using ParkingSpace.Common.Entity;
+using ParkingSpace.Common.Response;
+using ParkingSpace.Enums;
 using ParkingSpace.Features.Space.Entities;
 
 namespace ParkingSpace.Features.Space;
 
 public class SpotService : GenericService<Spot>, ISpotService {
     public SpotService(IRepository<Spot> repository) : base(repository) { }
+
+    public async Task<Response<Spot?>> GetByVehicleTypeAsync(Entities.Space space, VehicleType type) {
+        throw new NotImplementedException();
+    }
+    public async Task<Response<Spot?>> GetByVehicleAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle) {
+        throw new NotImplementedException();
+    }
+    public async Task<Response<Spot?>> GetByTagAsync(string tag) {
+        throw new NotImplementedException();
+    }
 }

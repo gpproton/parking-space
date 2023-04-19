@@ -15,6 +15,8 @@ namespace ParkingSpace.Features.Staff.Entities;
 
 public class Staff : CoreEntity<Guid> {
     [Required]
+    public string Username { get; set; } = null!;
+    [Required]
     public string FirstName { get; set; } = null!;
     [Required]
     public string LastName { get; set; } = null!;
