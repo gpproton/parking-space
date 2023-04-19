@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the MIT License;
+// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -8,12 +8,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using ParkingSpace.Common.Entity;
-using ParkingSpace.Common.Interfaces;
+namespace ParkingSpace.Features.Space;
 
-namespace ParkingSpace.Data;
-
-public class GenericRepository<TEntity> : GenericBaseRepository<TEntity, MainContext, Guid>
-    where TEntity : class, IAggregateRoot, IHasKey<Guid> {
-    public GenericRepository(MainContext context) : base(context) { }
+public interface ISpaceService : IGenericService<Entities.Space> {
+    
 }

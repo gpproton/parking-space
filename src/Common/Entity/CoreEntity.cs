@@ -13,7 +13,7 @@ using ParkingSpace.Common.Interfaces;
 
 namespace ParkingSpace.Common.Entity;
 
-public class CoreEntity<TKey> : IHasKey<TKey> {
+public class CoreEntity<TKey> : IHasKey<TKey>, IAggregateRoot {
     [Key]
     public TKey Id { get; set; } = default!;
 }

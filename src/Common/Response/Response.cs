@@ -10,23 +10,23 @@
 
 namespace ParkingSpace.Common.Response;
 
-public abstract class BaseResponse<T> {
-    protected BaseResponse() => Success = true;
+public class Response<T> {
+    protected Response() => Success = true;
 
-    protected BaseResponse(string message) {
+    public Response(string message) {
         Success = true;
         Message = message;
     }
 
-    protected BaseResponse(string message, bool success) {
+    public Response(string message, bool success) {
         Success = success;
         Message = message;
     }
 
-    protected BaseResponse(T? data, string message = "") {
-        Success = true;
+    public Response(T? data, string message = "", bool success = true) {
         Message = message;
         Data = data;
+        Success = success;
     }
 
     public bool Success { get; set; }

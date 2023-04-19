@@ -16,17 +16,37 @@ namespace ParkingSpace.Features.Customer;
 
 public class CustomerModule : IModule {
     public IServiceCollection RegisterApiModule(IServiceCollection services) {
+        services.AddScoped<ICustomerService, CustomerService>();
 
         return services;
     }
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         const string name = "Customer";
         var url = $"{ServiceConstants.Root}/{name.ToLower()}";
-
-        endpoints.MapGet(url, (PageFilter? filter) => {
-            // Implementation
-            return filter != null ? $"{filter.Page},{filter.PageSize},{filter.Search}" : "Test";
-        }).WithName("GetCustomer")
+        
+        endpoints.MapGet(url, (PageFilter? filter, [FromServices] ICustomerService service) =>
+        service.GetAllAsync(filter)
+        ).WithName("GetCustomer")
+        .WithTags(name);
+        
+        endpoints.MapGet($"{url}/:id", ([FromServices] ICustomerService service, Guid id) =>
+        service.GetByIdAsync(id)
+        ).WithName("GetCustomerById")
+        .WithTags(name);
+        
+        endpoints.MapPost(url, ([FromServices] ICustomerService service, [FromBody] Entities.Customer item) =>
+        service.AddAsync(item)        
+        ).WithName("CreateCustomer")
+        .WithTags(name);
+        
+        endpoints.MapPut(url, ([FromServices] ICustomerService service, [FromBody] Entities.Customer item) =>
+        service.UpdateAsync(item)        
+        ).WithName("UpdateCustomer")
+        .WithTags(name);
+        
+        endpoints.MapDelete($"{url}/:id", ([FromServices] ICustomerService service, Guid id) =>
+        service.ArchiveAsync(id)        
+        ).WithName("ArchiveCustomer")
         .WithTags(name);
 
         return endpoints;

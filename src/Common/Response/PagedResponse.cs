@@ -10,15 +10,24 @@
 
 namespace ParkingSpace.Common.Response;
 
-public class PagedResponse<T> : BaseResponse<T> {
+public class PagedResponse<T> : Response<T> {
     public int Page { get; set; }
-    public int PerPage { get; set; }
+    public int PageSize { get; set; }
     public int Total { get; set; }
 
     public int Pages {
         get {
-            var total = ((double)this.Total / this.PerPage);
+            var total = ((double)this.Total / this.PageSize);
             return Convert.ToInt32(Math.Ceiling(total));
         }
+    }
+
+    public PagedResponse(T? data, int page, int size, int total, string message = "", bool success = true) {
+        Message = message;
+        Data = data;
+        Page = page;
+        PageSize = size;
+        Total = total;
+        Success = success;
     }
 }

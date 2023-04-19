@@ -14,72 +14,74 @@ using ParkingSpace.Common.Interfaces;
 
 namespace ParkingSpace.Common.Entity;
 
-public class GenericBaseRepository<T, TContext> : IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
+public class GenericBaseRepository<TEntity, TContext, TId> : IReadRepository<TEntity>, IRepository<TEntity>
+    where TId : notnull
+    where TEntity : class, IAggregateRoot, IHasKey<TId>
     where TContext : DbContext {
     private readonly TContext _context;
     protected GenericBaseRepository(TContext context) => _context = context;
     
-    public virtual IQueryable<T> GetAll(CancellationToken cancellationToken = default) =>
-    _context.Set<T>().AsQueryable();
+    public virtual IQueryable<TEntity> GetAll(CancellationToken cancellationToken = default) =>
+    _context.Set<TEntity>().AsQueryable();
 
-    public virtual async Task<IEnumerable<T>> GetAll(IPageFilter filter, CancellationToken cancellationToken = default) {
-        // var search = filter.Search.Split(" ").ToList().Select(x => x.ToLower());
-        return await _context.Set<T>()
-               .Skip(filter.Page * filter.PageSize)
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync(IPageFilter filter, CancellationToken cancellationToken = default) {
+        return await _context.Set<TEntity>()
                .Take(filter.PageSize)
+               .Skip(filter.Page - 1 * filter.PageSize)
                .ToListAsync(cancellationToken: cancellationToken);
     }
     
-    public IQueryable<T> GetQueryable(IPageFilter filter, CancellationToken cancellationToken = default) {
-        return _context.Set<T>()
-               .Skip(filter.Page * filter.PageSize)
-               .Take(filter.PageSize)
-               .AsQueryable();
+    public IQueryable<TEntity> GetQueryable(IPageFilter filter, CancellationToken cancellationToken = default) {
+        var query = _context.Set<TEntity>().OrderBy(x => x.Id);
+        return query
+                .Take(filter.PageSize)
+                .Skip(filter.Page - 1 * filter.PageSize)
+                .AsQueryable();
     }
 
-    public virtual async Task<T?> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
-    await _context.Set<T>().FindAsync(new object[] { id }, cancellationToken: cancellationToken);
+    public virtual async Task<TEntity?> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default) where TId : notnull =>
+    await _context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken: cancellationToken);
     
-    public virtual IEnumerable<T> Find(Expression<Func<T, bool>> expression) =>
-    _context.Set<T>().Where(expression);
+    public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression) =>
+    _context.Set<TEntity>().Where(expression);
 
-    public virtual IQueryable<T> GetQueryable(CancellationToken cancellationToken = default) =>
-    _context.Set<T>();
+    public virtual IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default) =>
+    _context.Set<TEntity>();
     
-    public virtual async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default) {
-        _context.Set<T>().Add(entity);
+    public virtual async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default) {
+        _context.Set<TEntity>().Add(entity);
         await this.SaveChangesAsync(cancellationToken);
 
         return entity;
     }
     
-    public virtual async Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default) {
-        IEnumerable<T> addRangeAsync = entities.ToList();
-        _context.Set<T>().AddRange(addRangeAsync);
+    public virtual async Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) {
+        IEnumerable<TEntity> addRangeAsync = entities.ToList();
+        _context.Set<TEntity>().AddRange(addRangeAsync);
         await this.SaveChangesAsync(cancellationToken);
 
         return addRangeAsync;
     }
     
-    public virtual async Task UpdateAsync(T entity, CancellationToken cancellationToken = default) {
+    public virtual async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default) {
         _context.Entry(entity).State = EntityState.Modified;
         await this.SaveChangesAsync(cancellationToken);
     }
     
-    public virtual async Task UpdateRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default) {
+    public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) {
         foreach (var entity in entities) {
             _context.Entry(entity).State = EntityState.Modified;
         }
         await this.SaveChangesAsync(cancellationToken);
     }
     
-    public virtual async Task ArchiveAsync(T entity, CancellationToken cancellationToken = default) {
-        _context.Set<T>().Remove(entity);
+    public virtual async Task ArchiveAsync(TEntity entity, CancellationToken cancellationToken = default) {
+        _context.Set<TEntity>().Remove(entity);
         await SaveChangesAsync(cancellationToken);
     }
     
-    public virtual async Task ArchiveRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default) {
-        _context.Set<T>().RemoveRange(entities);
+    public virtual async Task ArchiveRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default) {
+        _context.Set<TEntity>().RemoveRange(entities);
         await SaveChangesAsync(cancellationToken);
     }
     

@@ -9,6 +9,7 @@
 // limitations under the License.
 
 using Microsoft.EntityFrameworkCore;
+using ParkingSpace.Common.Interfaces;
 using ParkingSpace.Features.Customer.Entities;
 using ParkingSpace.Features.Incident.Entities;
 using ParkingSpace.Features.Price.Entities;
@@ -23,8 +24,9 @@ public class MainContext : DbContext {
     public MainContext(DbContextOptions<MainContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
-        if (modelBuilder == null)
-            throw new ArgumentNullException(nameof(modelBuilder));
+        if (modelBuilder == null) throw new ArgumentNullException(nameof(modelBuilder));
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes()) { }
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
         (new DataSeeder(modelBuilder)).Run();
         
