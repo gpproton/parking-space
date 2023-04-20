@@ -8,17 +8,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace ParkingSpace.Tests {
-    [CollectionDefinition("api-context")]
-    public class ProblemSolutionsCollection : ICollectionFixture<ServiceFactory> {
-        // This class has no code, and is never created. Its purpose is simply
-        // to be the place to apply [CollectionDefinition] and all the
-        // ICollectionFixture<> interfaces.
-    }
+namespace ParkingSpace.Tests;
 
-    // [CollectionDefinition("api-context")]
-    // public class ApiFixtureCollection : ICollectionFixture<ServiceFactory> { }
-
-    [CollectionDefinition("api-context")]
-    public class BackendFixtureCollection : ICollectionFixture<ServiceFactory> { }
+[CollectionDefinition("api-context")]
+public class ProblemSolutionsCollection : ICollectionFixture<ServiceFactory> {
+    // This class has no code, and is never created. Its purpose is simply
+    // to be the place to apply [CollectionDefinition] and all the
+    // ICollectionFixture<> interfaces.
 }
