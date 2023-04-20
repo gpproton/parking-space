@@ -10,12 +10,15 @@
 
 using System.ComponentModel.DataAnnotations;
 using ParkingSpace.Common.Entity;
+using ParkingSpace.Enums;
 
 namespace ParkingSpace.Features.Vehicle.Entities;
 
 public class Vehicle : AuditableEntity<Guid> {
     [Required]
     public string RegistrationNo { get; set; } = null!;
+    [Required]
+    public VehicleType Type { get; set; }
     public string? Color { get; set; }
     public Customer.Entities.Customer? Customer { get; set; }
     public Guid? CustomerId { get; set; }
