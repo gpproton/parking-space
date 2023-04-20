@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using ParkingSpace.Extensions;
+using ParkingSpace.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ if (app.Environment.IsDevelopment())
         opt.DisplayRequestDuration();
         opt.ShowExtensions();
     });
-else app.UseHsts(); ;
+else app.UseHsts();
 app.UseReDoc();
 app.UseAuthorization();
 app.MapControllers();

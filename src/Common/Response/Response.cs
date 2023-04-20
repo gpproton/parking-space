@@ -11,7 +11,9 @@
 namespace ParkingSpace.Common.Response;
 
 public class Response<T> {
-    protected Response() => Success = true;
+    public Response() {
+        Success = true;
+    }
 
     public Response(string message) {
         Success = true;

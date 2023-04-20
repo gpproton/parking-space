@@ -15,10 +15,14 @@ namespace ParkingSpace.Extensions;
 
 public static class EndpointExtensions {
     private static readonly List<IModule> RegisteredModules = new List<IModule>();
+    private static readonly List<IModule> RegisteredEndpoints = new List<IModule>();
 
     public static IServiceCollection RegisterModules(this IServiceCollection services) {
         var modules = DiscoverModules();
         foreach (var module in modules) {
+            if (!RegisteredModules.Contains(module).Equals(false))
+                continue;
+
             module.RegisterApiModule(services);
             RegisteredModules.Add(module);
         }
@@ -27,8 +31,10 @@ public static class EndpointExtensions {
     }
 
     public static WebApplication RegisterApiEndpoints(this WebApplication app) {
-        foreach (var module in RegisteredModules)
+        foreach (var module in RegisteredModules.Where(module => !RegisteredEndpoints.Contains(module))) {
+            RegisteredEndpoints.Add(module);
             module.MapEndpoints(app);
+        }
 
         return app;
     }

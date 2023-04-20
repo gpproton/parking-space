@@ -14,6 +14,7 @@ using ParkingSpace.Common.Interfaces;
 namespace ParkingSpace.Common.Entity;
 
 public interface IReadRepository<TEntity> where TEntity : class, IAggregateRoot {
+    IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default);
     IQueryable<TEntity> GetAll(CancellationToken cancellationToken = default);
     Task<IEnumerable<TEntity>> GetAllAsync(IPageFilter filter, CancellationToken cancellationToken = default);
     IQueryable<TEntity> GetQueryable(IPageFilter filter, CancellationToken cancellationToken = default);

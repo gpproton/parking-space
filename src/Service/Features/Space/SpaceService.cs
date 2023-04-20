@@ -8,14 +8,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Microsoft.EntityFrameworkCore;
 using ParkingSpace.Common.Entity;
 using ParkingSpace.Common.Response;
 
 namespace ParkingSpace.Features.Space;
 
 public class SpaceService : GenericService<Entities.Space>, ISpaceService {
-    public SpaceService(IRepository<Entities.Space> repository) : base(repository) { }
-    public async Task<Response<Entities.Space?>> GetByDescriptionAsync(string name) {
-        throw new NotImplementedException();
+    private readonly IReadRepository<Entities.Space> _read;
+    public SpaceService(IRepository<Entities.Space> repository, IReadRepository<Entities.Space> read) : base(repository) {
+        _read = read;
+    }
+    public async Task<Response<Entities.Space?>> GetByDescriptionAsync(string description) {
+        var value = await _read.GetQueryable()
+        .FirstOrDefaultAsync(x => x.Description.Equals(description) && x.Active);
+
+        return new Response<Entities.Space?>(value, "Success", value != null);
     }
 }

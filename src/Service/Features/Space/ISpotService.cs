@@ -15,7 +15,8 @@ using ParkingSpace.Features.Space.Entities;
 namespace ParkingSpace.Features.Space;
 
 public interface ISpotService : IGenericService<Spot> {
-    Task<Response<Entities.Spot?>> GetByVehicleTypeAsync(Entities.Space space, VehicleType type);
+    Task<Response<Entities.Spot?>> GetByVehicleTypeAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle);
     Task<Response<Entities.Spot?>> GetByVehicleAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle);
     Task<Response<Entities.Spot?>> GetByTagAsync(string tag);
+    Task<Response<int>> CheckSpotAvailableAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle);
 }

@@ -8,25 +8,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using ParkingSpace.Common;
 using Xunit.Abstractions;
 
-namespace ParkingSpace.Tests;
+namespace ParkingSpace.Tests.ProblemSolutions;
 
-public class CustomerTests {
+[Collection("api-context")]
+public class StadiumParkingLot {
     private readonly ITestOutputHelper _output;
+    private readonly ServiceFactory _factory;
     
-    public CustomerTests(ITestOutputHelper output) {
+    public StadiumParkingLot(ITestOutputHelper output, ServiceFactory factory) {
         _output = output;
-    }
-    
-    [Fact]
-    public async Task TestSample() {
-        await using var application = new MinimalApplication();
-        using var client = application.CreateClient();
-        var response = await client.GetStringAsync($"{ServiceConstants.Root}/space");
-        // var test = JsonSerializer.Deserialize<PagedResponse<List<Space>>>(response);
-        _output.WriteLine(response);
-        Assert.NotNull(response);
+        _factory = factory;
     }
 }

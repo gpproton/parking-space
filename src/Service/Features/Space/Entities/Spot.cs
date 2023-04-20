@@ -18,7 +18,8 @@ public class Spot : AuditableEntity<Guid> {
     [Required]
     public string Tag { get; set; } = null!;
     public bool Active { get; set; }
-    public int Available { get; set; }
+    public int MaximumSpot { get; set; }
+    public int AvailableSpot { get; set; }
     public Space? Space { get; set; }
     public Guid? SpaceId { get; set; }
     public ICollection<VehicleType> VehicleType { get; set; } = default!;

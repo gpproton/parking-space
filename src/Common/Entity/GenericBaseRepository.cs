@@ -14,7 +14,7 @@ using ParkingSpace.Common.Interfaces;
 
 namespace ParkingSpace.Common.Entity;
 
-public class GenericBaseRepository<TEntity, TContext, TId> : IReadRepository<TEntity>, IRepository<TEntity>
+public class GenericBaseRepository<TEntity, TContext, TId> : IRepository<TEntity>
     where TId : notnull
     where TEntity : class, IAggregateRoot, IHasKey<TId>
     where TContext : DbContext {

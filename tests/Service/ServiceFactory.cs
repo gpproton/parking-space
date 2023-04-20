@@ -8,9 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System.Data.Common;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
@@ -18,17 +19,28 @@ using ParkingSpace.Data;
 
 namespace ParkingSpace.Tests;
 
-public class MinimalApplication : WebApplicationFactory<Program> {
+public class ServiceFactory : WebApplicationFactory<Program> {
     protected override IHost CreateHost(IHostBuilder builder) {
-        var root = new InMemoryDatabaseRoot();
         Program.UseProxy = false;
         builder.ConfigureServices(services => {
             services.RemoveAll(typeof(DbContextOptions<MainContext>));
-            services.AddDbContext<MainContext>(options =>
-            options.UseInMemoryDatabase("Testing", root)
+            services.RemoveAll(typeof(DbConnection));
+            
+            // Create open SqliteConnection so EF won't automatically close it.
+            services.AddSingleton<DbConnection>(container => {
+                var connection = new SqliteConnection("DataSource=:memory:");
+                connection.Open();
+
+                return connection;
+            });
+            
+            services.AddDbContext<MainContext>((container, options) => {
+                    var connection = container.GetRequiredService<DbConnection>();
+                    options.UseSqlite(connection);
+                }
             );
         });
-
+        
         return base.CreateHost(builder);
     }
 }

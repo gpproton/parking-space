@@ -13,7 +13,6 @@ using ParkingSpace.Common.Interfaces;
 namespace ParkingSpace.Common.Entity;
 
 public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity : class, IAggregateRoot {
-    IQueryable<TEntity> GetQueryable(CancellationToken cancellationToken = default);
     Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken = default);
     Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
     Task UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);

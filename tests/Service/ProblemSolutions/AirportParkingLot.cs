@@ -8,12 +8,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using ParkingSpace.Common.Response;
+using Xunit.Abstractions;
 
-namespace ParkingSpace.Features.Ticket;
+namespace ParkingSpace.Tests.ProblemSolutions;
 
-public interface ITicketService : IGenericService<Entities.Ticket> {
-    Task<Response<double?>> GetPriceAsync(Entities.Ticket entity);
-    Task<Response<Entities.Ticket>> ParkVehicleAsync<TId>(Entities.Ticket entity);
-    Task<Response<Entities.Ticket>> UnParkVehicleAsync<TId>(Entities.Ticket entity);
+[Collection("api-context")]
+public class AirportParkingLot {
+    private readonly ITestOutputHelper _output;
+    private readonly ServiceFactory _factory;
+    
+    public AirportParkingLot(ITestOutputHelper output, ServiceFactory factory) {
+        _output = output;
+        _factory = factory;
+    }
 }
