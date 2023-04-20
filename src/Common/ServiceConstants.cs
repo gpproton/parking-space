@@ -8,7 +8,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace ParkingSpace;
+namespace ParkingSpace.Common;
 
 public static class ServiceConstants {
     public const string Root = "/api/v1";

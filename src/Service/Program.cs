@@ -36,9 +36,14 @@ app.RegisterApiEndpoints();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
 #if DEBUG
-app.UseSpaYarp();
+if(UseProxy) app.UseSpaYarp();
 #endif
 app.MapFallbackToFile("index.html");
 
 app.Run();
+
+public partial class Program {
+    public static bool UseProxy { get; set; } = true;
+}

@@ -11,8 +11,8 @@
 namespace ParkingSpace.Common.Response;
 
 public class PagedResponse<T> : Response<T> {
-    public int Page { get; set; }
-    public int PageSize { get; set; }
+    public int Page { get; set; } = 1;
+    public int PageSize { get; set; } = 10;
     public int Total { get; set; }
 
     public int Pages {
@@ -21,6 +21,8 @@ public class PagedResponse<T> : Response<T> {
             return Convert.ToInt32(Math.Ceiling(total));
         }
     }
+
+    public PagedResponse() { }
 
     public PagedResponse(T? data, int page, int size, int total, string message = "", bool success = true) {
         Message = message;

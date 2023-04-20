@@ -15,10 +15,14 @@ namespace ParkingSpace.Features.Ticket;
 
 public class TicketService : GenericService<Entities.Ticket>, ITicketService {
     public TicketService(IRepository<Entities.Ticket> repository) : base(repository) { }
-    public async Task<Response<decimal?>> GetPriceAsync<TId>(TId id) where TId : notnull {
+
+    public async Task<Response<decimal?>> GetPriceAsync(Entities.Ticket entity) {
         throw new NotImplementedException();
     }
-    public async Task<Response<Entities.Ticket?>> CompleteAsync<TId>(TId id) where TId : notnull {
+    public async Task<Response<Entities.Ticket?>> ParkVehicleAsync<TId>(Entities.Ticket entity) {
+        throw new NotImplementedException();
+    }
+    public async Task<Response<Entities.Ticket?>> UnParkVehicleAsync<TId>(Entities.Ticket entity) {
         throw new NotImplementedException();
     }
 }

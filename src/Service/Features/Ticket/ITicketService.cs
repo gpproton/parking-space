@@ -13,6 +13,7 @@ using ParkingSpace.Common.Response;
 namespace ParkingSpace.Features.Ticket;
 
 public interface ITicketService : IGenericService<Entities.Ticket> {
-    Task<Response<decimal?>> GetPriceAsync<TId>(TId id) where TId : notnull;
-    Task<Response<Entities.Ticket?>> CompleteAsync<TId>(TId id) where TId : notnull;
+    Task<Response<decimal?>> GetPriceAsync(Entities.Ticket entity);
+    Task<Response<Entities.Ticket?>> ParkVehicleAsync<TId>(Entities.Ticket entity);
+    Task<Response<Entities.Ticket?>> UnParkVehicleAsync<TId>(Entities.Ticket entity);
 }

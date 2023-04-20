@@ -13,5 +13,5 @@ using ParkingSpace.Common.Response;
 namespace ParkingSpace.Features.Space;
 
 public interface ISpaceService : IGenericService<Entities.Space> {
-    Task<Response<Entities.Space?>> GetByNameAsync(string name);
+    Task<Response<Entities.Space?>> GetByDescriptionAsync(string name);
 }

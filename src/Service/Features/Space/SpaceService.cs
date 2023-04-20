@@ -15,7 +15,7 @@ namespace ParkingSpace.Features.Space;
 
 public class SpaceService : GenericService<Entities.Space>, ISpaceService {
     public SpaceService(IRepository<Entities.Space> repository) : base(repository) { }
-    public async Task<Response<Entities.Space?>> GetByNameAsync(string name) {
+    public async Task<Response<Entities.Space?>> GetByDescriptionAsync(string name) {
         throw new NotImplementedException();
     }
 }

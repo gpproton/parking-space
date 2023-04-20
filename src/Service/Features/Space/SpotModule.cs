@@ -9,6 +9,7 @@
 // limitations under the License.
 
 using Microsoft.AspNetCore.Mvc;
+using ParkingSpace.Common;
 using ParkingSpace.Features.Space.Entities;
 using ParkingSpace.Filters;
 using ParkingSpace.Interfaces;
