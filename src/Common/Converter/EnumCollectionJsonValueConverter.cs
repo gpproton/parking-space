@@ -20,5 +20,5 @@ public class EnumCollectionJsonValueConverter<T> : ValueConverter<ICollection<T>
         v => JsonConvert
         .DeserializeObject<ICollection<string>>(v)!
         .OrderBy(x => x)
-        .Select(e => (T) Enum.Parse(typeof(T), e)).ToList()) { }
+        .Select(e => (T)Enum.Parse(typeof(T), e)).ToList()) { }
 }

@@ -25,27 +25,27 @@ public class StaffModule : IModule {
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         const string name = nameof(Entities.Staff);
         var url = $"{ServiceConstants.Root}/{name.ToLower()}";
-        
+
         endpoints.MapGet(url, (PageFilter? filter, [FromServices] IStaffService service) =>
         service.GetAllAsync(filter)
         ).WithName($"Get{name}")
         .WithTags(name);
-        
+
         endpoints.MapGet($"{url}/:id", ([FromServices] IStaffService service, Guid id) =>
         service.GetByIdAsync(id)
         ).WithName($"Get{name}ById")
         .WithTags(name);
-        
+
         endpoints.MapPost(url, ([FromServices] IStaffService service, [FromBody] Entities.Staff item) =>
-        service.AddAsync(item)        
+        service.AddAsync(item)
         ).WithName($"Create{name}")
         .WithTags(name);
-        
+
         endpoints.MapPut(url, ([FromServices] IStaffService service, [FromBody] Entities.Staff item) =>
-        service.UpdateAsync(item)        
+        service.UpdateAsync(item)
         ).WithName($"Update{name}")
         .WithTags(name);
-        
+
         return endpoints;
     }
 }

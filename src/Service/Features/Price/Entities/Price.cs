@@ -20,7 +20,8 @@ public class Price : AuditableEntity<Guid> {
     public Space.Entities.Space? Space { get; set; }
     public Guid? SpaceId { get; set; }
     public double MaximumTime { get; set; }
-    public bool PerHour { get; set; }
-    public decimal Amount { get; set; }
+    public PriceModel ChargeModel { get; set; } = PriceModel.FlatRate;
+    public bool SumPrice { get; set; } = true;
+    public double Amount { get; set; }
     public ICollection<VehicleType> VehicleType { get; set; } = default!;
 }

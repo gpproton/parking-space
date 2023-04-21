@@ -17,7 +17,7 @@ namespace ParkingSpace.Tests.Services;
 [Collection("api-context")]
 public class SpaceServiceTests {
     private readonly AsyncServiceScope _scope;
-    
+
     public SpaceServiceTests(ServiceFactory factory) {
         _scope = factory.Services.CreateAsyncScope();
     }
@@ -26,17 +26,17 @@ public class SpaceServiceTests {
     public async Task TestSpaceServiceGetAll() {
         var service = _scope.ServiceProvider.GetService<ISpaceService>();
         var check = await service!.GetAllAsync(null);
-        
+
         Assert.NotNull(check.Data);
     }
-    
+
     [Fact]
     public async Task TestSpaceServiceCreate() {
         var service = _scope.ServiceProvider.GetService<ISpaceService>();
         var check = await service!.AddAsync(new Space {
             Description = "Test-00"
         });
-        
+
         Assert.NotNull(check.Data);
     }
 }

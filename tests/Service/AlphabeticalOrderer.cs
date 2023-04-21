@@ -8,8 +8,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using ParkingSpace.Common.Interfaces;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
-namespace ParkingSpace.Features.Customer;
+namespace ParkingSpace.Tests;
 
-public interface ICustomerService : IGenericService<Entities.Customer> { }
+public class AlphabeticalOrderer : ITestCaseOrderer {
+    public IEnumerable<TTestCase> OrderTestCases<TTestCase>(
+        IEnumerable<TTestCase> testCases) where TTestCase : ITestCase =>
+    testCases.OrderBy(testCase => testCase.TestMethod.Method.Name);
+}

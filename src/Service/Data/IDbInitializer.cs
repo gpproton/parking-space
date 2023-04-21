@@ -12,6 +12,6 @@ namespace ParkingSpace.Data;
 
 public interface IDbInitializer {
     Task Initialize(CancellationToken cancellationToken = default!);
-    
+
     Task SeedData(CancellationToken cancellationToken = default!);
 }

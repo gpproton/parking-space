@@ -25,24 +25,24 @@ public class VehicleModule : IModule {
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         const string name = nameof(Vehicle);
         var url = $"{ServiceConstants.Root}/{name.ToLower()}";
-        
+
         endpoints.MapGet(url, (PageFilter? filter, [FromServices] IVehicleService service) =>
         service.GetAllAsync(filter)
         ).WithName($"Get{name}")
         .WithTags(name);
-        
+
         endpoints.MapGet($"{url}/:id", ([FromServices] IVehicleService service, Guid id) =>
         service.GetByIdAsync(id)
         ).WithName($"Get{name}ById")
         .WithTags(name);
-        
+
         endpoints.MapPost(url, ([FromServices] IVehicleService service, [FromBody] Entities.Vehicle item) =>
-        service.AddAsync(item)        
+        service.AddAsync(item)
         ).WithName($"Create{name}")
         .WithTags(name);
-        
+
         endpoints.MapPut(url, ([FromServices] IVehicleService service, [FromBody] Entities.Vehicle item) =>
-        service.UpdateAsync(item)        
+        service.UpdateAsync(item)
         ).WithName($"Update{name}")
         .WithTags(name);
 

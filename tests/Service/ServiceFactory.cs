@@ -25,7 +25,7 @@ public class ServiceFactory : WebApplicationFactory<Program> {
         builder.ConfigureServices(services => {
             services.RemoveAll(typeof(DbContextOptions<MainContext>));
             services.RemoveAll(typeof(DbConnection));
-            
+
             // Create open SqliteConnection so EF won't automatically close it.
             services.AddSingleton<DbConnection>(container => {
                 var connection = new SqliteConnection("DataSource=:memory:");
@@ -33,14 +33,14 @@ public class ServiceFactory : WebApplicationFactory<Program> {
 
                 return connection;
             });
-            
+
             services.AddDbContext<MainContext>((container, options) => {
-                    var connection = container.GetRequiredService<DbConnection>();
-                    options.UseSqlite(connection);
-                }
+                var connection = container.GetRequiredService<DbConnection>();
+                options.UseSqlite(connection);
+            }
             );
         });
-        
+
         return base.CreateHost(builder);
     }
 }

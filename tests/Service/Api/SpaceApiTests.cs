@@ -22,21 +22,21 @@ namespace ParkingSpace.Tests.Api;
 public class SpaceApiTests {
     private readonly ITestOutputHelper _output;
     private readonly ServiceFactory _factory;
-    
+
     public SpaceApiTests(ITestOutputHelper output, ServiceFactory factory) {
         _output = output;
         _factory = factory;
     }
-    
+
     [Fact]
     public async Task TestApiSpaceGetAll() {
         var client = _factory.CreateClient();
         var response = await client.GetFromJsonAsync<PagedResponse<List<Space>>>($"{ServiceConstants.Root}/space");
-        
+
         _output.WriteLine(JsonSerializer.Serialize(response));
         Assert.NotNull(response);
     }
-    
+
     [Fact]
     public async Task TestApiSpaceCreate() {
         var client = _factory.CreateClient();
@@ -44,7 +44,7 @@ public class SpaceApiTests {
         var content = new StringContent(JsonSerializer.Serialize(space), Encoding.UTF8, "application/json");
         var response = await client.PostAsync(new Uri($"{ServiceConstants.Root}/space"), content);
         var value = await response.Content.ReadFromJsonAsync<Response<Space>>();
-        
+
         _output.WriteLine(JsonSerializer.Serialize(value));
         Assert.NotNull(value);
     }

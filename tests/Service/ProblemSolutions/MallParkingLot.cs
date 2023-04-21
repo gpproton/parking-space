@@ -16,7 +16,7 @@ namespace ParkingSpace.Tests.ProblemSolutions;
 public class MallParkingLot {
     private readonly ITestOutputHelper _output;
     private readonly ServiceFactory _factory;
-    
+
     public MallParkingLot(ITestOutputHelper output, ServiceFactory factory) {
         _output = output;
         _factory = factory;

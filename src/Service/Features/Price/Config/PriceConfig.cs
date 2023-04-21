@@ -21,12 +21,15 @@ public class PriceConfig : IEntityTypeConfiguration<Entities.Price> {
         .Property(e => e.VehicleType)
         .HasConversion(new EnumCollectionJsonValueConverter<VehicleType>())
         .Metadata.SetValueComparer(new CollectionValueComparer<VehicleType>());
-        
+
         builder
         .HasAlternateKey(x => new {
-            x.SpaceId, x.MaximumTime, x.VehicleType
+            x.SpaceId,
+            x.VehicleType,
+            x.ChargeModel,
+            x.MaximumTime
         });
-        
+
         builder
         .HasOne<Space.Entities.Space>(x => x.Space)
         .WithMany(m => m.Prices)

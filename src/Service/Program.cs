@@ -1,9 +1,9 @@
 using Microsoft.OpenApi.Models;
 using ParkingSpace.Extensions;
-using ParkingSpace.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddTransient(typeof(Lazy<>), typeof(Lazy<>));
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt => {
@@ -39,7 +39,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 #if DEBUG
-if(UseProxy) app.UseSpaYarp();
+if (UseProxy) app.UseSpaYarp();
 #endif
 app.MapFallbackToFile("index.html");
 

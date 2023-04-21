@@ -21,12 +21,12 @@ namespace ParkingSpace.Tests.Api;
 public class SpotApiTests {
     private readonly ITestOutputHelper _output;
     private readonly ServiceFactory _factory;
-    
+
     public SpotApiTests(ITestOutputHelper output, ServiceFactory factory) {
         _output = output;
         _factory = factory;
     }
-    
+
     [Fact]
     public async Task TestApiSpotGetAll() {
         var client = _factory.CreateClient();

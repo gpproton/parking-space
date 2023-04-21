@@ -8,8 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using ParkingSpace.Common.Interfaces;
+namespace ParkingSpace.Enums;
 
-namespace ParkingSpace.Features.Customer;
-
-public interface ICustomerService : IGenericService<Entities.Customer> { }
+public enum PriceModel {
+    FlatRate,
+    PerInfinityHour,
+    PerDay
+}

@@ -17,6 +17,9 @@ public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot 
     Task<PagedResponse<IEnumerable<TEntity>>> GetAllAsync(IPageFilter? filter);
     Task<Response<TEntity?>> GetByIdAsync<TId>(TId id) where TId : notnull;
     Task<Response<TEntity>> AddAsync(TEntity entity);
+    Task<Response<IEnumerable<TEntity>>> AddRangeAsync(IEnumerable<TEntity> entities);
     Task<Response<TEntity?>> UpdateAsync(TEntity entity);
+    Task UpdateRangeAsync(IEnumerable<TEntity> entities);
     Task<Response<TEntity?>> ArchiveAsync<TId>(TId entity) where TId : notnull;
+    Task ArchiveRangeAsync(IEnumerable<TEntity> entities);
 }

@@ -23,14 +23,14 @@ public class PageFilter : IPageFilter {
     public string Search { get; set; }
     public int Page { get; set; }
     public int PageSize { get; set; }
-    
+
     public static ValueTask<PageFilter?> BindAsync(HttpContext httpContext, ParameterInfo parameter) {
         int.TryParse(httpContext.Request.Query["page"], out var page);
         int.TryParse(httpContext.Request.Query["page-size"], out var pageSize);
 
         return ValueTask.FromResult<PageFilter?>(
             new PageFilter(
-                page == 0 ? 1 : page, 
+                page == 0 ? 1 : page,
                 pageSize == 0 ? 10 : pageSize,
                 httpContext.Request.Query["search"]
             )

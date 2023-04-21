@@ -19,24 +19,24 @@ namespace ParkingSpace.Data;
 public class DbInitializer : IDbInitializer {
     private readonly IServiceScopeFactory _scopeFactory;
 
-    public DbInitializer (IServiceScopeFactory scopeFactory) {
+    public DbInitializer(IServiceScopeFactory scopeFactory) {
         this._scopeFactory = scopeFactory;
     }
 
-    public async Task Initialize (CancellationToken cancellationToken = default!) {
-        using var serviceScope = _scopeFactory.CreateScope ();
+    public async Task Initialize(CancellationToken cancellationToken = default!) {
+        using var serviceScope = _scopeFactory.CreateScope();
         await using var context = serviceScope.ServiceProvider.GetService<MainContext>();
         if (context is null) return;
-        if(context.Database.IsRelational())
+        if (context.Database.IsRelational())
             await context.Database.MigrateAsync(cancellationToken);
     }
-    
-    public async Task SeedData (CancellationToken cancellationToken = default!) {
-        using var serviceScope = _scopeFactory.CreateScope ();
-        await using var context = serviceScope.ServiceProvider.GetService<MainContext> ();
+
+    public async Task SeedData(CancellationToken cancellationToken = default!) {
+        using var serviceScope = _scopeFactory.CreateScope();
+        await using var context = serviceScope.ServiceProvider.GetService<MainContext>();
         if (context is null) return;
-        
-        if (!context.Spaces.Any ()) {
+
+        if (!context.Spaces.Any()) {
             var spaces = SpaceSeeds.GetSpaces();
             await context.Spaces.AddRangeAsync(spaces, cancellationToken);
         }
@@ -45,5 +45,5 @@ public class DbInitializer : IDbInitializer {
 
     }
 
-    
+
 }

@@ -25,13 +25,13 @@ public static class DatabaseExtensions {
             b => b
             .MigrationsAssembly(typeof(MainContext).Assembly.FullName)
             .UseRelationalNulls()
-            )
+        ).EnableSensitiveDataLogging()
         );
-        
+
         services.Configure<JsonOptions>(options => {
             options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         });
-        
+
         services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(GenericRepository<>));
         services.AddScoped<IDbInitializer, DbInitializer>();

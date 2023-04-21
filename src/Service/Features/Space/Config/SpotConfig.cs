@@ -23,7 +23,7 @@ public class SpotConfig : IEntityTypeConfiguration<Spot> {
         .Property(e => e.VehicleType)
         .HasConversion(new EnumCollectionJsonValueConverter<VehicleType>())
         .Metadata.SetValueComparer(new CollectionValueComparer<VehicleType>());
-        
+
         // INFO: Adds unique to spot based on the properties.
         builder
         .HasAlternateKey(x => new {

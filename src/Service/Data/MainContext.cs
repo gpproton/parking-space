@@ -30,7 +30,7 @@ public class MainContext : DbContext {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
-    
+
     public DbSet<Customer> Customers { get; set; } = null!;
     public DbSet<Incident> Incidents { get; set; } = null!;
     public DbSet<Price> Prices { get; set; } = null!;

@@ -11,18 +11,28 @@
 using Microsoft.EntityFrameworkCore;
 using ParkingSpace.Common.Entity;
 using ParkingSpace.Common.Response;
+using ParkingSpace.Features.Space;
+using ParkingSpace.Helpers;
 
 namespace ParkingSpace.Features.Ticket;
 
 public class TicketService : GenericService<Entities.Ticket>, ITicketService {
     private readonly IReadRepository<Entities.Ticket> _read;
+    private readonly IRepository<Entities.Ticket> _repository;
     private readonly IReadRepository<Price.Entities.Price> _price;
-    public TicketService(IRepository<Entities.Ticket> repository, IReadRepository<Entities.Ticket> read, IReadRepository<Price.Entities.Price> price) : base(repository) {
+    private readonly ISpotService _spotService;
+    public TicketService(
+        IRepository<Entities.Ticket> repository,
+        IReadRepository<Entities.Ticket> read,
+        IReadRepository<Price.Entities.Price> price,
+        ISpotService spotService) : base(repository) {
+        _repository = repository;
         _read = read;
         _price = price;
+        _spotService = spotService;
     }
 
-    public async Task<Response<double?>> GetPriceAsync(Entities.Ticket entity) {
+    public async Task<Response<double>> GetPriceAsync(Entities.Ticket entity) {
         var ticket = await _read.GetQueryable()
         .Where(x => x.Id.Equals(entity.Id))
         .Include(x => x.Vehicle)
@@ -31,29 +41,52 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
 
         var spot = ticket!.Spot;
 
-        if (spot == null)
-            return new Response<double?>(null, String.Empty, false);
-        
-        var timeSpent = ((DateTimeOffset.Now - ticket.StartedAt)!).Value.TotalHours;
+        if (spot is null)
+            return new Response<double>(0, String.Empty, false);
+
         var prices = await _price.GetQueryable()
-        .Where(x => 
+        .Where(x =>
             x.SpaceId == spot!.SpaceId
-            && x.MaximumTime <= timeSpent
             && x.VehicleType.Equals(spot.VehicleType))
         .ToListAsync();
-        
-        // TODO: Iterate calculate fixed flat rate
-        // TODO: Get standard rate
-        // TODO: Get per hours rate
-        
-        return new Response<double?>(timeSpent, String.Empty, false);
+
+        var charge = PriceHelper.CalculatePrice(ticket, prices);
+
+        return new Response<double>(charge, String.Empty, false);
     }
-    
-    public async Task<Response<Entities.Ticket>> ParkVehicleAsync<TId>(Entities.Ticket entity) {
-        throw new NotImplementedException();
+
+    public async Task<Response<Entities.Ticket?>> ParkVehicleAsync(SpotVehicleParams option) {
+        // Check spot availability
+        var spotAvailable = await _spotService.CheckAvailabilityAsync(option);
+        if (spotAvailable.Data > 0)
+            return new Response<Entities.Ticket?>(null, spotAvailable.Message);
+
+        // Create Ticket
+        var spot = await _spotService.GetByVehicleAsync(option);
+        var ticket = new Entities.Ticket {
+            TicketNumber = Guid.NewGuid().ToString()[..6],
+            SpotPosition = spotAvailable.Data++,
+            SpotId = spot.Data!.Id,
+            VehicleId = option.Vehicle.Id,
+            StartedAt = DateTimeOffset.Now,
+        };
+        var result = await _repository.AddAsync(ticket);
+
+        return new Response<Entities.Ticket?>(result, "Success");
     }
-    
-    public async Task<Response<Entities.Ticket>> UnParkVehicleAsync<TId>(Entities.Ticket entity) {
-        throw new NotImplementedException();
+
+    public async Task<Response<Entities.Ticket>> UnParkVehicleAsync(Entities.Ticket entity) {
+        var price = await this.GetPriceAsync(entity);
+        entity.Amount = price.Data;
+        entity.CompletedAt = DateTimeOffset.Now;
+        entity.Paid = true;
+
+        await _repository.UpdateAsync(entity);
+
+        var spot = entity.Spot;
+        spot!.AvailableSpot -= 1;
+        await _spotService.UpdateAsync(spot);
+
+        return new Response<Entities.Ticket>(entity);
     }
 }

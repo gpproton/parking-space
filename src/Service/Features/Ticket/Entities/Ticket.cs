@@ -19,9 +19,12 @@ public class Ticket : AuditableEntity<Guid> {
     public string TicketNumber { get; set; } = null!;
     public Spot? Spot { get; set; }
     public Guid? SpotId { get; set; }
+    [Required]
+    public int SpotPosition { get; set; }
     public Vehicle.Entities.Vehicle? Vehicle { get; set; }
     public Guid? VehicleId { get; set; }
     public DateTimeOffset? StartedAt { get; set; }
     public DateTimeOffset? CompletedAt { get; set; }
-    public decimal Amount { get; set; }
+    public double Amount { get; set; }
+    public bool Paid { get; set; }
 }

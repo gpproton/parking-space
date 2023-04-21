@@ -20,7 +20,7 @@ public class IncidentConfig : IEntityTypeConfiguration<Entities.Incident> {
         .WithMany()
         .HasForeignKey(f => f.SpaceId)
         .OnDelete(DeleteBehavior.SetNull);
-        
+
         builder
         .HasOne<Vehicle.Entities.Vehicle>(x => x.Vehicle)
         .WithMany()

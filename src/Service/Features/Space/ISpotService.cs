@@ -9,14 +9,14 @@
 // limitations under the License.
 
 using ParkingSpace.Common.Response;
-using ParkingSpace.Enums;
 using ParkingSpace.Features.Space.Entities;
+using ParkingSpace.Helpers;
 
 namespace ParkingSpace.Features.Space;
 
 public interface ISpotService : IGenericService<Spot> {
-    Task<Response<Entities.Spot?>> GetByVehicleTypeAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle);
-    Task<Response<Entities.Spot?>> GetByVehicleAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle);
+    Task<Response<Entities.Spot?>> GetByVehicleAsync(SpotVehicleParams option);
+    Task<Response<Entities.Spot?>> GetByVehicleTypeAsync(SpotVehicleTypeParams option);
     Task<Response<Entities.Spot?>> GetByTagAsync(string tag);
-    Task<Response<int>> CheckSpotAvailableAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle);
+    Task<Response<int>> CheckAvailabilityAsync(SpotVehicleParams option);
 }

@@ -24,29 +24,29 @@ public class SpaceModule : IModule {
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         const string name = nameof(Space);
         var url = $"{ServiceConstants.Root}/{name.ToLower()}";
-        
+
         endpoints.MapGet(url, (PageFilter? filter, [FromServices] ISpaceService service) =>
             service.GetAllAsync(filter)
         ).WithName($"Get{name}")
         .WithTags(name);
-        
+
         endpoints.MapGet($"{url}/:id", ([FromServices] ISpaceService service, Guid id) =>
         service.GetByIdAsync(id)
         ).WithName($"Get{name}ById")
         .WithTags(name);
-        
+
         endpoints.MapPost(url, ([FromServices] ISpaceService service, [FromBody] Entities.Space item) =>
-        service.AddAsync(item)        
+        service.AddAsync(item)
         ).WithName($"Create{name}")
         .WithTags(name);
-        
+
         endpoints.MapPut(url, ([FromServices] ISpaceService service, [FromBody] Entities.Space item) =>
-        service.UpdateAsync(item)        
+        service.UpdateAsync(item)
         ).WithName($"Update{name}")
         .WithTags(name);
-        
+
         endpoints.MapDelete($"{url}/:id", ([FromServices] ISpaceService service, Guid id) =>
-        service.ArchiveAsync(id)        
+        service.ArchiveAsync(id)
         ).WithName($"Archive{name}")
         .WithTags(name);
 

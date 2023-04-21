@@ -21,10 +21,10 @@ public class CustomModule : IModule {
     public IEndpointRouteBuilder MapEndpoints(IEndpointRouteBuilder endpoints) {
         const string name = "shared";
         var url = $"{ServiceConstants.Root}/{name}";
-        
+
         endpoints.MapGet($"{url}/test", () => {
-                
-            }
+
+        }
         ).WithName($"Get{name}")
         .WithTags(name);
 

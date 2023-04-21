@@ -8,8 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using ParkingSpace.Common.Interfaces;
+using ParkingSpace.Enums;
+using ParkingSpace.Features.Space.Entities;
+using ParkingSpace.Features.Vehicle.Entities;
 
-namespace ParkingSpace.Features.Customer;
+namespace ParkingSpace.Helpers;
 
-public interface ICustomerService : IGenericService<Entities.Customer> { }
+public record SpotVehicleParams(Space Space, Vehicle Vehicle);
+
+public record SpotVehicleTypeParams(Space Space, VehicleType Type);

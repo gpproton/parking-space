@@ -15,12 +15,12 @@ namespace ParkingSpace.Data;
 public class MigrationService : BackgroundService {
     private readonly ILogger<MigrationService> _logger;
     private readonly IDbInitializer _initializer;
-    
+
     public MigrationService(ILogger<MigrationService> logger, IServiceScopeFactory factory) {
         _logger = logger;
         _initializer = factory.CreateScope().ServiceProvider.GetRequiredService<IDbInitializer>();
     }
-    
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
         _logger.LogInformation("Starting migration & seeding...");
         await _initializer.Initialize(stoppingToken);

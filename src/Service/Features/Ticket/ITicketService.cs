@@ -9,11 +9,12 @@
 // limitations under the License.
 
 using ParkingSpace.Common.Response;
+using ParkingSpace.Helpers;
 
 namespace ParkingSpace.Features.Ticket;
 
 public interface ITicketService : IGenericService<Entities.Ticket> {
-    Task<Response<double?>> GetPriceAsync(Entities.Ticket entity);
-    Task<Response<Entities.Ticket>> ParkVehicleAsync<TId>(Entities.Ticket entity);
-    Task<Response<Entities.Ticket>> UnParkVehicleAsync<TId>(Entities.Ticket entity);
+    Task<Response<double>> GetPriceAsync(Entities.Ticket entity);
+    Task<Response<Entities.Ticket?>> ParkVehicleAsync(SpotVehicleParams option);
+    Task<Response<Entities.Ticket>> UnParkVehicleAsync(Entities.Ticket entity);
 }

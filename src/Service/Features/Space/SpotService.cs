@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using ParkingSpace.Common.Entity;
 using ParkingSpace.Common.Response;
 using ParkingSpace.Features.Space.Entities;
+using ParkingSpace.Helpers;
 
 namespace ParkingSpace.Features.Space;
 
@@ -23,47 +24,50 @@ public class SpotService : GenericService<Spot>, ISpotService {
         _ticket = ticket;
     }
 
-    public async Task<Response<Spot?>> GetByVehicleTypeAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle) {
-        var value = await _read.GetQueryable()
-            .FirstOrDefaultAsync(x => 
-            x.SpaceId == space.Id
-            && x.Active
-            && x.VehicleType.Contains(vehicle.Type));
-        
-        return new Response<Spot?>(value, string.Empty, value != null);
-    }
-    public async Task<Response<Spot?>> GetByVehicleAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle) {
+    public async Task<Response<Spot?>> GetByVehicleAsync(SpotVehicleParams option) {
         var value = await _read.GetQueryable()
             .FirstOrDefaultAsync(x =>
-            x.SpaceId.Equals(space.Id) 
-            && x.VehicleType.Contains(vehicle.Type));
+            x.SpaceId.Equals(option.Space.Id)
+            && x.VehicleType.Contains(option.Vehicle.Type));
 
         return new Response<Spot?>(value, string.Empty, value != null);
     }
+
+    public async Task<Response<Spot?>> GetByVehicleTypeAsync(SpotVehicleTypeParams option) {
+        var value = await _read.GetQueryable()
+                    .FirstOrDefaultAsync(x =>
+                    x.SpaceId == option.Space.Id
+                    && x.Active
+                    && x.VehicleType.Contains(option.Type));
+
+        return new Response<Spot?>(value, string.Empty, value != null);
+    }
+
     public async Task<Response<Spot?>> GetByTagAsync(string tag) {
         var value = await _read.GetQueryable()
             .FirstOrDefaultAsync(x =>
             x.Active
             && x.Tag.Equals(tag));
-        
+
         return new Response<Spot?>(value, string.Empty, value != null);
     }
-    public async Task<Response<int>> CheckSpotAvailableAsync(Entities.Space space, Vehicle.Entities.Vehicle vehicle) {
-        var spot = await _read.GetQueryable()
-                    .FirstOrDefaultAsync(x => 
-                    x.SpaceId == space.Id
-                    && x.Active
-                    && x.VehicleType.Contains(vehicle.Type));
 
-        if (spot == null)
-            return new Response<int>(0, String.Empty, false);
+    public async Task<Response<int>> CheckAvailabilityAsync(SpotVehicleParams option) {
+        var spot = await _read.GetQueryable()
+                    .FirstOrDefaultAsync(x =>
+                    x.SpaceId == option.Space.Id
+                    && x.Active
+                    && x.VehicleType.Contains(option.Vehicle.Type));
+
+        if (spot is null)
+            return new Response<int>(0, "No spot found", false);
 
         var activeSpots = await _ticket.GetQueryable()
                     .CountAsync(x =>
                     x.SpotId.Equals(spot.Id)
                     && x.StartedAt != null
                     && x.CompletedAt == null);
-        
-        return new Response<int>(activeSpots, String.Empty);
+
+        return new Response<int>(spot.MaximumSpot - activeSpots, String.Empty);
     }
 }
