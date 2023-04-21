@@ -18,8 +18,8 @@ public class Incident : AuditableEntity<Guid> {
     public string Subject { get; set; } = null!;
     public string? Description { get; set; }
     public DateTimeOffset? OccurredAt { get; set; }
-    public Space.Entities.Space? Space { get; set; }
+    public virtual Space.Entities.Space? Space { get; set; }
     public Guid? SpaceId { get; set; }
-    public Vehicle.Entities.Vehicle? Vehicle { get; set; }
+    public virtual Vehicle.Entities.Vehicle? Vehicle { get; set; }
     public Guid? VehicleId { get; set; }
 }

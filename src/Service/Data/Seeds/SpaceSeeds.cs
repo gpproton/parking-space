@@ -49,16 +49,16 @@ public static class SpaceSeeds {
                         },
                     }
                 },
-                Spots = new List<Spot> {
-                    new Spot {
-                        Tag = "MALL(Bus/Truck)",
-                        Active = true,
-                        VehicleType = new List<VehicleType> {
-                            VehicleType.Bus,
-                            VehicleType.Truck
-                        }
-                    }
-                }
+                // Spots = new List<Spot> {
+                //     new Spot {
+                //         Tag = "MALL(Bus/Truck)",
+                //         Active = true,
+                //         VehicleType = new List<VehicleType> {
+                //             VehicleType.Bus,
+                //             VehicleType.Truck
+                //         }
+                //     }
+                // }
             },
             // STADIUM spots & prices
             new Space {

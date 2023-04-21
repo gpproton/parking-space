@@ -8,6 +8,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using ParkingSpace.Common.Response;
+
 namespace ParkingSpace.Features.Vehicle;
 
-public interface IVehicleService : IGenericService<Entities.Vehicle> { }
+public interface IVehicleService : IGenericService<Entities.Vehicle> {
+    Task<Response<Entities.Vehicle?>> GetByRegistrationNoAsync(string registrationNo);
+}

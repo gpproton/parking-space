@@ -18,5 +18,5 @@ public class Space : AuditableEntity<Guid> {
     public string Description { get; set; } = null!;
     public bool Active { get; set; }
     public ICollection<Spot> Spots { get; set; } = default!;
-    public ICollection<Price.Entities.Price> Prices { get; set; } = default!;
+    public virtual ICollection<Price.Entities.Price> Prices { get; set; } = default!;
 }

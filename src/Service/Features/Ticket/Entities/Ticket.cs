@@ -17,11 +17,11 @@ namespace ParkingSpace.Features.Ticket.Entities;
 public class Ticket : AuditableEntity<Guid> {
     [Required]
     public string TicketNumber { get; set; } = null!;
-    public Spot? Spot { get; set; }
+    public virtual Spot? Spot { get; set; }
     public Guid? SpotId { get; set; }
     [Required]
     public int SpotPosition { get; set; }
-    public Vehicle.Entities.Vehicle? Vehicle { get; set; }
+    public virtual Vehicle.Entities.Vehicle? Vehicle { get; set; }
     public Guid? VehicleId { get; set; }
     public DateTimeOffset? StartedAt { get; set; }
     public DateTimeOffset? CompletedAt { get; set; }

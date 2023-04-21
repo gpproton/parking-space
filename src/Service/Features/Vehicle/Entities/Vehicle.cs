@@ -20,6 +20,6 @@ public class Vehicle : AuditableEntity<Guid> {
     [Required]
     public VehicleType Type { get; set; }
     public string? Color { get; set; }
-    public Customer.Entities.Customer? Customer { get; set; }
+    public virtual Customer.Entities.Customer? Customer { get; set; }
     public Guid? CustomerId { get; set; }
 }

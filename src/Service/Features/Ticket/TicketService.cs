@@ -10,8 +10,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using ParkingSpace.Common.Entity;
+using ParkingSpace.Common.Interfaces;
 using ParkingSpace.Common.Response;
 using ParkingSpace.Features.Space;
+using ParkingSpace.Filters;
 using ParkingSpace.Helpers;
 
 namespace ParkingSpace.Features.Ticket;
@@ -31,6 +33,17 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
         _price = price;
         _spotService = spotService;
     }
+    
+    new public async Task<PagedResponse<IEnumerable<Entities.Ticket>>> GetAllAsync(IPageFilter? filter) {
+        var checkFilter = filter ?? new PageFilter();
+        var count = await _repository.GetQueryable().CountAsync();
+        var result = await _repository
+                     .GetQueryable(checkFilter)
+                     .Where(x => x.CompletedAt == null)
+                     .ToListAsync();
+
+        return new PagedResponse<IEnumerable<Entities.Ticket>>(result, checkFilter.Page, checkFilter.PageSize, count);
+    }
 
     public async Task<Response<double>> GetPriceAsync(Entities.Ticket entity) {
         var ticket = await _read.GetQueryable()
@@ -49,42 +62,54 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
             x.SpaceId == spot!.SpaceId
             && x.VehicleType.Equals(spot.VehicleType))
         .ToListAsync();
-
-        var charge = PriceHelper.CalculatePrice(ticket, prices);
+        entity.CompletedAt ??= DateTimeOffset.Now;
+        var charge = PriceHelper.CalculatePrice(ticket, prices, entity.CompletedAt);
 
         return new Response<double>(charge, String.Empty, false);
+    }
+    public async Task<Response<Entities.Ticket?>> GetActiveByVehicleAsync(Vehicle.Entities.Vehicle vehicle) {
+        var result = await _repository.GetQueryable()
+                    .Where(x => x.VehicleId.Equals(vehicle.Id)
+                        && x.CompletedAt == null
+                        )
+                    .FirstOrDefaultAsync();
+        
+        return new Response<Entities.Ticket?>(result);
     }
 
     public async Task<Response<Entities.Ticket?>> ParkVehicleAsync(SpotVehicleParams option) {
         // Check spot availability
-        var spotAvailable = await _spotService.CheckAvailabilityAsync(option);
-        if (spotAvailable.Data > 0)
-            return new Response<Entities.Ticket?>(null, spotAvailable.Message);
+        var totalSpotAvailable = await _spotService.CheckAvailabilityAsync(option);
+        if (totalSpotAvailable.Data < 1)
+            return new Response<Entities.Ticket?>(null, totalSpotAvailable.Message, false);
 
         // Create Ticket
-        var spot = await _spotService.GetByVehicleAsync(option);
+        var spot = (await _spotService.GetByVehicleAsync(option)).Data;
+        var vehicleSpotNumber = (spot!.MaximumSpot - totalSpotAvailable.Data) + 1;
+        spot.AvailableSpot -= 1;
         var ticket = new Entities.Ticket {
-            TicketNumber = Guid.NewGuid().ToString()[..6],
-            SpotPosition = spotAvailable.Data++,
-            SpotId = spot.Data!.Id,
+            TicketNumber = Guid.NewGuid().ToString()[..8].ToUpper(),
+            SpotPosition = vehicleSpotNumber,
+            SpotId = spot!.Id,
             VehicleId = option.Vehicle.Id,
-            StartedAt = DateTimeOffset.Now,
+            StartedAt = option.Time,
         };
+        
         var result = await _repository.AddAsync(ticket);
+        await _spotService.UpdateAsync(spot);
 
         return new Response<Entities.Ticket?>(result, "Success");
     }
 
     public async Task<Response<Entities.Ticket>> UnParkVehicleAsync(Entities.Ticket entity) {
+        entity.CompletedAt ??= DateTimeOffset.Now;
         var price = await this.GetPriceAsync(entity);
         entity.Amount = price.Data;
-        entity.CompletedAt = DateTimeOffset.Now;
         entity.Paid = true;
-
         await _repository.UpdateAsync(entity);
 
         var spot = entity.Spot;
-        spot!.AvailableSpot -= 1;
+        spot!.AvailableSpot += 1;
         await _spotService.UpdateAsync(spot);
 
         return new Response<Entities.Ticket>(entity);

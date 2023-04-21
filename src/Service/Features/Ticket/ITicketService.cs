@@ -15,6 +15,7 @@ namespace ParkingSpace.Features.Ticket;
 
 public interface ITicketService : IGenericService<Entities.Ticket> {
     Task<Response<double>> GetPriceAsync(Entities.Ticket entity);
+    Task<Response<Entities.Ticket?>> GetActiveByVehicleAsync(Vehicle.Entities.Vehicle vehicle);
     Task<Response<Entities.Ticket?>> ParkVehicleAsync(SpotVehicleParams option);
     Task<Response<Entities.Ticket>> UnParkVehicleAsync(Entities.Ticket entity);
 }

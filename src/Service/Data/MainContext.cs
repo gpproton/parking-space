@@ -28,15 +28,16 @@ public class MainContext : DbContext {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes()) { }
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
+        // this.ChangeTracker.LazyLoadingEnabled = false;
         base.OnModelCreating(modelBuilder);
     }
 
-    public DbSet<Customer> Customers { get; set; } = null!;
-    public DbSet<Incident> Incidents { get; set; } = null!;
-    public DbSet<Price> Prices { get; set; } = null!;
-    public DbSet<Space> Spaces { get; set; } = null!;
-    public DbSet<Spot> Spots { get; set; } = null!;
-    public DbSet<Staff> Staffs { get; set; } = null!;
-    public DbSet<Ticket> Tickets { get; set; } = null!;
-    public DbSet<Vehicle> Vehicles { get; set; } = null!;
+    public virtual DbSet<Customer> Customers { get; set; } = null!;
+    public virtual DbSet<Incident> Incidents { get; set; } = null!;
+    public virtual DbSet<Price> Prices { get; set; } = null!;
+    public virtual DbSet<Space> Spaces { get; set; } = null!;
+    public virtual DbSet<Spot> Spots { get; set; } = null!;
+    public virtual DbSet<Staff> Staffs { get; set; } = null!;
+    public virtual DbSet<Ticket> Tickets { get; set; } = null!;
+    public virtual DbSet<Vehicle> Vehicles { get; set; } = null!;
 }

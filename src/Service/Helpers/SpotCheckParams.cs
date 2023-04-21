@@ -14,6 +14,6 @@ using ParkingSpace.Features.Vehicle.Entities;
 
 namespace ParkingSpace.Helpers;
 
-public record SpotVehicleParams(Space Space, Vehicle Vehicle);
+public record SpotVehicleParams(Space Space, Vehicle Vehicle, DateTimeOffset? Time = null);
 
 public record SpotVehicleTypeParams(Space Space, VehicleType Type);

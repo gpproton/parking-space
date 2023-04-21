@@ -47,10 +47,10 @@ public class RandomTests {
         };
 
         var prices = spaces!.Prices.Where(x => x.VehicleType.Contains(vehicle.Type)).ToList();
-        var amount = PriceHelper.CalculatePrice(ticket, prices);
+        // var amount = PriceHelper.CalculatePrice(ticket, prices);
 
         _output.WriteLine(JsonSerializer.Serialize(prices));
-        _output.WriteLine(JsonSerializer.Serialize(amount));
+        // _output.WriteLine(JsonSerializer.Serialize(amount));
         await Task.Delay(5);
     }
 }

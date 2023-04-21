@@ -17,11 +17,11 @@ namespace ParkingSpace.Features.Price.Entities;
 public class Price : AuditableEntity<Guid> {
     [Required]
     public string? Description { get; set; }
-    public Space.Entities.Space? Space { get; set; }
+    public virtual Space.Entities.Space? Space { get; set; }
     public Guid? SpaceId { get; set; }
     public double MaximumTime { get; set; }
     public PriceModel ChargeModel { get; set; } = PriceModel.FlatRate;
     public bool SumPrice { get; set; } = true;
     public double Amount { get; set; }
-    public ICollection<VehicleType> VehicleType { get; set; } = default!;
+    public virtual ICollection<VehicleType> VehicleType { get; set; } = default!;
 }

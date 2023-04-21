@@ -25,10 +25,12 @@ public class SpotService : GenericService<Spot>, ISpotService {
     }
 
     public async Task<Response<Spot?>> GetByVehicleAsync(SpotVehicleParams option) {
-        var value = await _read.GetQueryable()
-            .FirstOrDefaultAsync(x =>
+        var value = (await  _read.GetQueryable()
+            .Where(x =>
             x.SpaceId.Equals(option.Space.Id)
-            && x.VehicleType.Contains(option.Vehicle.Type));
+            && x.Active)
+            .ToListAsync())
+        .FirstOrDefault(x => x.VehicleType.Contains(option.Vehicle.Type));
 
         return new Response<Spot?>(value, string.Empty, value != null);
     }
@@ -53,21 +55,17 @@ public class SpotService : GenericService<Spot>, ISpotService {
     }
 
     public async Task<Response<int>> CheckAvailabilityAsync(SpotVehicleParams option) {
-        var spot = await _read.GetQueryable()
-                    .FirstOrDefaultAsync(x =>
-                    x.SpaceId == option.Space.Id
-                    && x.Active
-                    && x.VehicleType.Contains(option.Vehicle.Type));
-
+        const string noSpace = "No space available";
+        var spot = (await this.GetByVehicleAsync(option)).Data;
         if (spot is null)
-            return new Response<int>(0, "No spot found", false);
+            return new Response<int>(0, noSpace, false);
 
         var activeSpots = await _ticket.GetQueryable()
                     .CountAsync(x =>
                     x.SpotId.Equals(spot.Id)
                     && x.StartedAt != null
                     && x.CompletedAt == null);
-
-        return new Response<int>(spot.MaximumSpot - activeSpots, String.Empty);
+        var result = spot.MaximumSpot - activeSpots;
+        return new Response<int>(result, result > 0 ? "Success" : noSpace);
     }
 }

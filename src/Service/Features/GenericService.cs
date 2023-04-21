@@ -25,9 +25,8 @@ public abstract class GenericService<TEntity> : IGenericService<TEntity> where T
 
     public virtual async Task<PagedResponse<IEnumerable<TEntity>>> GetAllAsync(IPageFilter? filter) {
         var checkFilter = filter ?? new PageFilter();
-        var query = _repository.GetQueryable(checkFilter);
         var count = await _repository.GetQueryable().CountAsync();
-        var result = await query.ToListAsync();
+        var result = await _repository.GetQueryable(checkFilter).ToListAsync();
         // var search = checkFilter.Search.Split(" ").ToList().Select(x => x.ToLower());
 
         return new PagedResponse<IEnumerable<TEntity>>(result, checkFilter.Page, checkFilter.PageSize, count);

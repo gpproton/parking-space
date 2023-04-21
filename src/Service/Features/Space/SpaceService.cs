@@ -21,7 +21,9 @@ public class SpaceService : GenericService<Entities.Space>, ISpaceService {
     }
     public async Task<Response<Entities.Space?>> GetByDescriptionAsync(string description) {
         var value = await _read.GetQueryable()
-        .FirstOrDefaultAsync(x => x.Description.Equals(description) && x.Active);
+            .Include(x => x.Spots)
+            .Include(x => x.Prices)
+            .FirstOrDefaultAsync(x => x.Description.Equals(description) && x.Active);
 
         return new Response<Entities.Space?>(value, "Success", value != null);
     }
