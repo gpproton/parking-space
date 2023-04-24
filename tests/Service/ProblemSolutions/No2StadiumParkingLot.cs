@@ -13,11 +13,11 @@ using Xunit.Abstractions;
 namespace ParkingSpace.Tests.ProblemSolutions;
 
 [Collection("api-context")]
-public class AirportParkingLot {
+public class No2StadiumParkingLot {
     private readonly ITestOutputHelper _output;
     private readonly ServiceFactory _factory;
 
-    public AirportParkingLot(ITestOutputHelper output, ServiceFactory factory) {
+    public No2StadiumParkingLot(ITestOutputHelper output, ServiceFactory factory) {
         _output = output;
         _factory = factory;
     }

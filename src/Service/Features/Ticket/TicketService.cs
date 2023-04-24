@@ -33,7 +33,7 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
         _price = price;
         _spotService = spotService;
     }
-    
+
     new public async Task<PagedResponse<IEnumerable<Entities.Ticket>>> GetAllAsync(IPageFilter? filter) {
         var checkFilter = filter ?? new PageFilter();
         var count = await _repository.GetQueryable().CountAsync();
@@ -69,7 +69,7 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
                         && x.CompletedAt == null
                         )
                     .FirstOrDefaultAsync();
-        
+
         return new Response<Entities.Ticket?>(result);
     }
 
@@ -90,7 +90,7 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
             VehicleId = option.Vehicle.Id,
             StartedAt = option.Time,
         };
-        
+
         var result = await _repository.AddAsync(ticket);
         await _spotService.UpdateAsync(spot);
 

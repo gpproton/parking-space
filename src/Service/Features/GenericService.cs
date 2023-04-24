@@ -64,4 +64,7 @@ public abstract class GenericService<TEntity> : IGenericService<TEntity> where T
     public async Task ArchiveRangeAsync(IEnumerable<TEntity> entities) {
         await _repository.ArchiveRangeAsync(entities);
     }
+    public async Task ClearAsync() {
+        await _repository.ClearAsync();
+    }
 }

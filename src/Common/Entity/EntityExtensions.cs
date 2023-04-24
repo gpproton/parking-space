@@ -1,6 +1,6 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
 // 
-// Licensed under the MIT License;
+// Licensed under the Reciprocal Public License (RPL-1.5) and Trace License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -8,17 +8,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using Xunit.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
-namespace ParkingSpace.Tests.ProblemSolutions;
+namespace ParkingSpace.Common.Entity;
 
-[Collection("api-context")]
-public class MallParkingLot {
-    private readonly ITestOutputHelper _output;
-    private readonly ServiceFactory _factory;
-
-    public MallParkingLot(ITestOutputHelper output, ServiceFactory factory) {
-        _output = output;
-        _factory = factory;
+public static class EntityExtensions {
+    public static void Clear<T>(this DbSet<T> dbSet) where T : class {
+        dbSet.RemoveRange(dbSet);
     }
 }

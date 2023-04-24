@@ -19,5 +19,6 @@ public interface IRepository<TEntity> : IReadRepository<TEntity> where TEntity :
     Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
     Task ArchiveAsync(TEntity entity, CancellationToken cancellationToken = default);
     Task ArchiveRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default);
+    Task ClearAsync(CancellationToken cancellationToken = default);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

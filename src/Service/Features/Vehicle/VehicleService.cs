@@ -16,7 +16,7 @@ namespace ParkingSpace.Features.Vehicle;
 
 public class VehicleService : GenericService<Entities.Vehicle>, IVehicleService {
     private readonly IRepository<Entities.Vehicle> _repository;
-    
+
     public VehicleService(IRepository<Entities.Vehicle> repository) : base(repository) {
         _repository = repository;
     }

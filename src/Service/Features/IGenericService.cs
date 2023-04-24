@@ -22,4 +22,5 @@ public interface IGenericService<TEntity> where TEntity : class, IAggregateRoot 
     Task UpdateRangeAsync(IEnumerable<TEntity> entities);
     Task<Response<TEntity?>> ArchiveAsync<TId>(TId entity) where TId : notnull;
     Task ArchiveRangeAsync(IEnumerable<TEntity> entities);
+    Task ClearAsync();
 }

@@ -17,7 +17,7 @@ namespace ParkingSpace.Helpers;
 public static class PriceHelper {
     public static double CalculatePrice(Ticket ticket, List<Price> prices) {
         var totalTimeSpent = ((ticket.CompletedAt - ticket.StartedAt)!).Value.TotalHours;
-        
+
         double accumulatedTime = 0;
         double accumulatedCharge = 0;
         double totalDaysSpent = totalTimeSpent / 24;
@@ -25,7 +25,7 @@ public static class PriceHelper {
         var flatRatePrices = prices.Where(x => x.ChargeModel.Equals(PriceModel.FlatRate)).OrderBy(x => x.MaximumTime);
         var hourlyRatePrices = prices.FirstOrDefault(x => x.ChargeModel.Equals(PriceModel.PerInfinityHour));
         var dayRatePrices = prices.FirstOrDefault(x => x.ChargeModel.Equals(PriceModel.PerDay));
-        
+
         foreach (var price in flatRatePrices.Select((value, index) =>
                  new { Value = value, Index = index })) {
             // Handle summed rates

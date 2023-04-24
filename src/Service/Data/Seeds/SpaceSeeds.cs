@@ -23,7 +23,7 @@ public static class SpaceSeeds {
                 Description = "MALL",
                 Prices = new List<Price> {
                     new Price {
-                        Description = "MALL(Motorcycle)",
+                        Description = "MALL(Motorcycles/Scooters)",
                         ChargeModel = PriceModel.PerInfinityHour,
                         Amount = 10,
                         VehicleType = new List<VehicleType> {

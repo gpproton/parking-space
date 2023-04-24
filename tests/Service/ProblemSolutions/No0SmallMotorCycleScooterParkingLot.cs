@@ -25,14 +25,14 @@ namespace ParkingSpace.Tests.ProblemSolutions;
     ordererTypeName: "ParkingSpace.Tests.AlphabeticalOrderer",
     ordererAssemblyName: "ParkingSpace.Tests")]
 [Collection("api-context")]
-public class SmallMotorCycleScooterParkingLot {
+public class No0SmallMotorCycleScooterParkingLot {
     private readonly ITestOutputHelper _output;
     private readonly IVehicleService? _vehicle;
     private readonly ISpaceService? _space;
     private readonly ISpotService? _spot;
     private readonly ITicketService? _ticket;
 
-    public SmallMotorCycleScooterParkingLot(ServiceFactory factory, ITestOutputHelper output) {
+    public No0SmallMotorCycleScooterParkingLot(ServiceFactory factory, ITestOutputHelper output) {
         _output = output;
         AsyncServiceScope scope = factory.Services.CreateAsyncScope();
         _vehicle = scope.ServiceProvider.GetService<IVehicleService>();
@@ -40,12 +40,12 @@ public class SmallMotorCycleScooterParkingLot {
         _spot = scope.ServiceProvider.GetService<ISpotService>();
         _ticket = scope.ServiceProvider.GetService<ITicketService>();
     }
-    
+
     private async Task<Space> GetSpace() =>
     (await _space!.GetByDescriptionAsync("MALL")).Data!;
 
     [Fact]
-    public async Task Solution0CreateSpotsTest() {
+    public async Task No0CreateSpotsTest() {
         var space = await this.GetSpace();
         space.Spots.Add(new Spot {
             Tag = "MALL(Motorcycles/Scooters)",
@@ -58,13 +58,10 @@ public class SmallMotorCycleScooterParkingLot {
             }
         });
         await _space!.UpdateAsync(space);
-        var spot = _spot!.GetByTagAsync("MALL(Motorcycles/Scooters)");
-        
-        Assert.NotNull(spot);
     }
 
     [Fact]
-    public async Task Solution1CreateVehiclesTest() {
+    public async Task No1CreateVehiclesTest() {
         await _vehicle!.AddRangeAsync(new List<Vehicle> {
             new Vehicle {
                 RegistrationNo = "motorcycle-00",
@@ -86,19 +83,19 @@ public class SmallMotorCycleScooterParkingLot {
         var vehicles = await _vehicle.GetAllAsync(new PageFilter());
         Assert.NotEmpty(vehicles.Data!);
     }
-    
+
     [Fact]
-    public async Task Solution2ParkMotoCycle00Test() {
+    public async Task No2ParkMotoCycle00Test() {
         var space = await this.GetSpace();
         var vehicle = await _vehicle!.GetByRegistrationNoAsync("motorcycle-00");
         if (vehicle.Data is not null) {
             var ticket = (await _ticket!.ParkVehicleAsync(new SpotVehicleParams(
-                     space, 
-                     vehicle.Data, 
+                     space,
+                     vehicle.Data,
                      DateTimeOffset.Parse("29-May-2022 14:04:07")))
               )
         .Data;
-        _output.WriteLine($@"
+            _output.WriteLine($@"
 Parking Ticket:
 ==============
 Vehicle: {ticket!.Vehicle!.RegistrationNo}
@@ -106,12 +103,12 @@ Ticket Number: {ticket.TicketNumber}
 Spot Number: {ticket.SpotPosition}
 Entry Date-time: {ticket.StartedAt}
 ");
-        Assert.Equal(1, ticket.SpotPosition);
+            Assert.Equal(1, ticket.SpotPosition);
         }
     }
 
     [Fact]
-    public async Task Solution3ParkScooter00Test() {
+    public async Task No3ParkScooter00Test() {
         var space = await this.GetSpace();
         var vehicle = await _vehicle!.GetByRegistrationNoAsync("scooter-00");
 
@@ -132,9 +129,9 @@ Entry Date-time: {ticket.StartedAt}
             Assert.Equal(2, ticket.SpotPosition);
         }
     }
-    
+
     [Fact]
-    public async Task Solution4NoSpaceAvailableScooter01Test() {
+    public async Task No4NoSpaceAvailableScooter01Test() {
         var space = await this.GetSpace();
         var vehicle = await _vehicle!.GetByRegistrationNoAsync("scooter-01");
 
@@ -145,14 +142,14 @@ Entry Date-time: {ticket.StartedAt}
                               vehicle.Data,
                               DateTimeOffset.Parse("29-May-2022 14:53:07")))
              );
-            
+
             _output.WriteLine(ticket.Message);
             Assert.Equal("No space available", ticket.Message);
         }
     }
 
     [Fact]
-    public async Task Solution5UnParkScooter00Test() {
+    public async Task No5UnParkScooter00Test() {
         var vehicle = await _vehicle!.GetByRegistrationNoAsync("scooter-00");
         if (vehicle.Data is not null) {
             var pending = (await _ticket!.GetActiveByVehicleAsync(vehicle.Data)).Data;
@@ -172,15 +169,15 @@ Fee: {ticket.Amount}
             }
         }
     }
-    
+
     [Fact]
-    public async Task Solution6ParkMotoCycle01Test() {
+    public async Task No6ParkMotoCycle01Test() {
         var space = await this.GetSpace();
         var vehicle = await _vehicle!.GetByRegistrationNoAsync("motorcycle-01");
         if (vehicle.Data is not null) {
             var ticket = (await _ticket!.ParkVehicleAsync(new SpotVehicleParams(
-                              space, 
-                              vehicle.Data, 
+                              space,
+                              vehicle.Data,
                               DateTimeOffset.Parse("29-May-2022 15:59:07")))
                          )
             .Data;
@@ -195,9 +192,9 @@ Entry Date-time: {ticket.StartedAt}
             Assert.Equal(2, ticket.SpotPosition);
         }
     }
-    
+
     [Fact]
-    public async Task Solution6UnParkMotorcycle00Test() {
+    public async Task No6UnParkMotorcycle00Test() {
         var vehicle = await _vehicle!.GetByRegistrationNoAsync("motorcycle-00");
         if (vehicle.Data is not null) {
             var pending = (await _ticket!.GetActiveByVehicleAsync(vehicle.Data)).Data;
@@ -216,5 +213,12 @@ Fee: {ticket.Amount}
 ");
             }
         }
+    }
+
+    [Fact]
+    public async Task No7ClearData() {
+        await _ticket!.ClearAsync();
+        await _vehicle!.ClearAsync();
+        await _spot!.ClearAsync();
     }
 }

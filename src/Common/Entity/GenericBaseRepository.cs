@@ -85,6 +85,11 @@ public class GenericBaseRepository<TEntity, TContext, TId> : IRepository<TEntity
         await SaveChangesAsync(cancellationToken);
     }
 
+    public async Task ClearAsync(CancellationToken cancellationToken = default) {
+        _context.Set<TEntity>().Clear();
+        await SaveChangesAsync(cancellationToken);
+    }
+
     public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
     await _context.SaveChangesAsync(cancellationToken);
 }

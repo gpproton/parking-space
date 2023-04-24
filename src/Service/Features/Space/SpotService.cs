@@ -25,7 +25,7 @@ public class SpotService : GenericService<Spot>, ISpotService {
     }
 
     public async Task<Response<Spot?>> GetByVehicleAsync(SpotVehicleParams option) {
-        var value = (await  _read.GetQueryable()
+        var value = (await _read.GetQueryable()
             .Where(x =>
             x.SpaceId.Equals(option.Space.Id)
             && x.Active)

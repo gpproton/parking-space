@@ -35,7 +35,7 @@ public class VehicleModule : IModule {
         service.GetByIdAsync(id)
         ).WithName($"Get{name}ById")
         .WithTags(name);
-        
+
         endpoints.MapGet($"{url}/registration/:no", ([FromServices] IVehicleService service, string no) =>
         service.GetByRegistrationNoAsync(no)
         ).WithName($"Get{name}RegistrationNo")
