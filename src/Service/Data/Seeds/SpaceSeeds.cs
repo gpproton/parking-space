@@ -27,7 +27,8 @@ public static class SpaceSeeds {
                         ChargeModel = PriceModel.PerInfinityHour,
                         Amount = 10,
                         VehicleType = new List<VehicleType> {
-                            VehicleType.Motorcycle
+                            VehicleType.Motorcycle,
+                            VehicleType.Scooter
                         }
                     },
                     new Price {

@@ -15,16 +15,17 @@ using ParkingSpace.Features.Ticket.Entities;
 namespace ParkingSpace.Helpers;
 
 public static class PriceHelper {
-    public static double CalculatePrice(Ticket ticket, List<Price> prices, DateTimeOffset? time) {
-        var totalTimeSpent = ((time - ticket.StartedAt)!).Value.TotalHours;
-        var totalDays = totalTimeSpent / 24;
+    public static double CalculatePrice(Ticket ticket, List<Price> prices) {
+        var totalTimeSpent = ((ticket.CompletedAt - ticket.StartedAt)!).Value.TotalHours;
+        
         double accumulatedTime = 0;
         double accumulatedCharge = 0;
+        double totalDaysSpent = totalTimeSpent / 24;
 
         var flatRatePrices = prices.Where(x => x.ChargeModel.Equals(PriceModel.FlatRate)).OrderBy(x => x.MaximumTime);
         var hourlyRatePrices = prices.FirstOrDefault(x => x.ChargeModel.Equals(PriceModel.PerInfinityHour));
         var dayRatePrices = prices.FirstOrDefault(x => x.ChargeModel.Equals(PriceModel.PerDay));
-
+        
         foreach (var price in flatRatePrices.Select((value, index) =>
                  new { Value = value, Index = index })) {
             // Handle summed rates
@@ -42,13 +43,13 @@ public static class PriceHelper {
             }
         }
 
-        // Handles hourly rates
+        // Handle hourly rates
         if (hourlyRatePrices is not null)
             accumulatedCharge += Math.Ceiling(totalTimeSpent - accumulatedTime) * hourlyRatePrices.Amount;
 
-        // Handles daily rates
-        if (dayRatePrices is not null && totalDays >= 1)
-            return Math.Ceiling(totalDays) * dayRatePrices.Amount;
+        // Handle daily rates
+        if (dayRatePrices is not null && totalDaysSpent >= 1)
+            return Math.Ceiling(totalDaysSpent) * dayRatePrices.Amount;
 
         return accumulatedCharge;
     }
