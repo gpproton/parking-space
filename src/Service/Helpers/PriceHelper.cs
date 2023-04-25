@@ -29,7 +29,8 @@ public static class PriceHelper {
         foreach (var price in flatRatePrices) {
             if (accumulatedTime >= totalTimeSpent) break;
             accumulatedTime += price.MaximumTime > totalTimeSpent ? totalTimeSpent : (price.MaximumTime - accumulatedTime) * 1;
-            accumulatedCharge += price.Amount;
+            if (price.SumPrice) accumulatedCharge += price.Amount;
+            else accumulatedCharge = price.Amount;
         }
 
         // Handle hourly rates

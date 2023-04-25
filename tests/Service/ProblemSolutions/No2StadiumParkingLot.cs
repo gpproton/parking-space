@@ -104,7 +104,6 @@ public class No2StadiumParkingLot {
         if (vehicle.Data is null) return;
         
         var time = DateTimeOffset.Now.AddHours(-3).AddMinutes(-40);
-        _output.WriteLine(JsonLogger.Log(time));
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await _ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
@@ -133,7 +132,6 @@ Fee: {ticket.Amount}
         if (vehicle.Data is null) return;
         
         var time = DateTimeOffset.Now.AddHours(-14).AddMinutes(-59);
-        _output.WriteLine(JsonLogger.Log(time));
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await _ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
@@ -162,7 +160,6 @@ Fee: {ticket.Amount}
         if (vehicle.Data is null) return;
         
         var time = DateTimeOffset.Now.AddHours(-11).AddMinutes(-30);
-        _output.WriteLine(JsonLogger.Log(time));
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await _ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
@@ -191,7 +188,6 @@ Fee: {ticket.Amount}
         if (vehicle.Data is null) return;
         
         var time = DateTimeOffset.Now.AddHours(-13).AddMinutes(-5);
-        _output.WriteLine(JsonLogger.Log(time));
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await _ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
@@ -211,5 +207,12 @@ Entry Date-time: {ticket.StartedAt}
 Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
+    }
+    
+    [Fact]
+    public async Task No6ClearData() {
+        await _ticket!.ClearAsync();
+        await _vehicle!.ClearAsync();
+        await _spot!.ClearAsync();
     }
 }
