@@ -1,24 +1,29 @@
 <Project>
 
-    <PropertyGroup>
-        <Title>Parking Space</Title>
-        <Version>0.1</Version>
-        <Authors>radioActive DROID</Authors>
-        <Description>A sample parking lot management platform</Description>
-        <RepositoryType>git</RepositoryType>
-        <PackageTags>Parking, Vehicle</PackageTags>
-        <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Copyright>MIT</Copyright>
-        <RepositoryUrl>https://github.com/gpproton/parking-space</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/gpproton/parking-space</PackageProjectUrl>
-    </PropertyGroup>
+  <PropertyGroup>
+    <Title>Parking Space</Title>
+    <Version>0.1</Version>
+    <Authors>radioActive DROID</Authors>
+    <Description>A sample parking lot management platform</Description>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Parking, Vehicle</PackageTags>
+    <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>MIT</Copyright>
+    <RepositoryUrl>https://github.com/gpproton/parking-space</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/gpproton/parking-space</PackageProjectUrl>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>10</LangVersion>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DotnetVersion>6.0.16</DotnetVersion>
+    <SwaggerVersion>6.5.0</SwaggerVersion>
+  </PropertyGroup>
 
 </Project>

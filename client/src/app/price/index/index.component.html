@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Prices</h1>
+    <a href="#" routerLink="/post/create/" class="btn btn-success">New Price</a>
+  </div>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Max Time</th>
+      <th>Vehicle Types</th>
+      <th width="220px">Actions</th>
+    </tr>
+    <tr *ngFor="let price of prices">
+      <td>{{ price.description }}</td>
+      <td>{{ price.amount }}</td>
+      <td>{{ price.maximumTime }}</td>
+      <td>{{ price.vehicleType }}</td>
+      <td class="">
+        <a href="#" [routerLink]="['/space/', price.id, 'view']" class="btn btn-info">View</a>
+        <a href="#" [routerLink]="['/space/', price.id, 'edit']" class="btn btn-primary">Edit</a>
+        <!-- <button type="button" (click)="deletePost(price.id)" class="btn btn-danger">Delete</button> -->
+      </td>
+    </tr>
+  </table>
+</div>

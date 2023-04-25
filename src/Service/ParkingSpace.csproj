@@ -11,7 +11,7 @@
     <SpaRoot>..\..\client\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <SpaClientUrl>http://localhost:4200</SpaClientUrl>
-    <SpaLaunchCommand>npm start</SpaLaunchCommand>
+    <SpaLaunchCommand>npm run start</SpaLaunchCommand>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,8 +25,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +36,15 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\ParkingSpace.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Customer\Service\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -56,7 +67,7 @@
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --configuration production" />
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\pwa\**" />
+      <DistFiles Include="$(SpaRoot)dist\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>
           wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
