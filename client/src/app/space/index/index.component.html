@@ -1,1 +1,25 @@
-<p>index works!</p>
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Spaces</h1>
+    <a href="#" routerLink="/post/create/" class="btn btn-success">New Space</a>
+  </div>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Active</th>
+      <th width="220px">Actions</th>
+    </tr>
+    <tr *ngFor="let space of spaces">
+      <td>{{ space.id }}</td>
+      <td>{{ space.description }}</td>
+      <td>{{ space.active }}</td>
+      <td class="">
+        <a href="#" [routerLink]="['/space/', space.id, 'view']" class="btn btn-info">View</a>
+        <a href="#" [routerLink]="['/space/', space.id, 'edit']" class="btn btn-primary">Edit</a>
+        <!-- <button type="button" (click)="deletePost(space.id)" class="btn btn-danger">Delete</button> -->
+      </td>
+    </tr>
+  </table>
+</div>

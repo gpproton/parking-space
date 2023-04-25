@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Space } from '../interfaces/Space';
+import { PagedResponse } from '../interfaces/PagedResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +20,9 @@ export class SpaceService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getAll(): Observable<Space[]> {
+  getAll(): Observable<PagedResponse<Space>> {
     return this.httpClient
-      .get<Space[]>(this.apiURL + '/space')
+      .get<PagedResponse<Space>>(this.apiURL + '/space')
       .pipe(catchError(this.errorHandler));
   }
 
@@ -37,7 +38,7 @@ export class SpaceService {
 
   find(id: string): Observable<Space> {
     return this.httpClient
-      .get<Space>(this.apiURL + '/space' + id)
+      .get<Space>(this.apiURL + '/space/' + id)
       .pipe(catchError(this.errorHandler));
   }
 
