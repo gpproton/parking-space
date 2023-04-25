@@ -16,22 +16,12 @@ using ParkingSpace.Features.Space.Entities;
 using ParkingSpace.Features.Ticket.Entities;
 using ParkingSpace.Features.Vehicle.Entities;
 using ParkingSpace.Helpers;
-using Xunit.Abstractions;
 
 namespace ParkingSpace.Tests;
 
-[Collection("api-context")]
-public class RandomTests {
-    private readonly ITestOutputHelper _output;
-    private readonly AsyncServiceScope _scope;
-
-    public RandomTests(ServiceFactory factory, ITestOutputHelper output) {
-        _output = output;
-        _scope = factory.Services.CreateAsyncScope();
-    }
-
+public class PriceResolverTests {
     [Fact]
-    public async Task CheckAnyTest() {
+    public async Task SimpleStadiumMotorcycleTest() {
         var spaces = SpaceSeeds.GetSpaces().FirstOrDefault(x => x.Description.Equals("STADIUM"));
         var vehicle = new Vehicle {
             RegistrationNo = "XXX 123 XX",
@@ -41,16 +31,15 @@ public class RandomTests {
         var ticket = new Ticket {
             TicketNumber = Guid.NewGuid().ToString(),
             Vehicle = vehicle,
-            StartedAt = DateTimeOffset.Now.Subtract(TimeSpan.FromHours(14.5)),
+            StartedAt = DateTimeOffset.Now.AddHours(-3).AddMinutes(-40),
             CompletedAt = DateTimeOffset.Now,
             Spot = new Spot { Tag = "XXX-001" }
         };
 
         var prices = spaces!.Prices.Where(x => x.VehicleType.Contains(vehicle.Type)).ToList();
-        // var amount = PriceHelper.CalculatePrice(ticket, prices);
-
-        _output.WriteLine(JsonSerializer.Serialize(prices));
-        // _output.WriteLine(JsonSerializer.Serialize(amount));
+        var amount = PriceResolver.CalculatePrice(ticket, prices);
+        
+        Assert.Equal(30, amount);
         await Task.Delay(5);
     }
 }

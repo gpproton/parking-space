@@ -111,7 +111,7 @@ public class No0SmallMotorCycleScooterParkingLot : BaseTicketTest {
         pending!.CompletedAt = DateTimeOffset.Parse("29-May-2022 15:40:07");
         var ticket = (await Ticket.UnParkVehicleAsync(pending)).Data;
         this.PrintTicket(ticket);
-        
+        Assert.Equal(10, ticket!.Amount);
     }
 
     [Fact]
@@ -134,6 +134,7 @@ public class No0SmallMotorCycleScooterParkingLot : BaseTicketTest {
             pending!.CompletedAt = DateTimeOffset.Parse("29-May-2022 17:44:07");
             var ticket = (await Ticket.UnParkVehicleAsync(pending)).Data;
             this.PrintTicket(ticket);
+            Assert.Equal(40, ticket!.Amount);
         }
     }
 }
