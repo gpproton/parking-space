@@ -45,7 +45,7 @@ public class No0SmallMotorCycleScooterParkingLot {
     (await _space!.GetByDescriptionAsync("MALL")).Data!;
 
     [Fact]
-    public async Task No0CreateSpotsTest() {
+    public async Task No0CreateSpots() {
         var space = await this.GetSpace();
         space.Spots.Add(new Spot {
             Tag = "MALL(Motorcycles/Scooters)",
@@ -61,7 +61,7 @@ public class No0SmallMotorCycleScooterParkingLot {
     }
 
     [Fact]
-    public async Task No1CreateVehiclesTest() {
+    public async Task No1CreateVehicles() {
         await _vehicle!.AddRangeAsync(new List<Vehicle> {
             new Vehicle {
                 RegistrationNo = "motorcycle-00",
