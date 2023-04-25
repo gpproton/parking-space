@@ -59,7 +59,7 @@ public class TicketService : GenericService<Entities.Ticket>, ITicketService {
         var prices = (await _price.GetQueryable().Where(x => x.SpaceId == spot.SpaceId).ToListAsync());
         var requiredPrices = prices.Where(x => x.VehicleType.Contains(entity.Vehicle!.Type)).ToList();
         entity.CompletedAt ??= DateTimeOffset.Now;
-        var charge = PriceHelper.CalculatePrice(ticket, requiredPrices);
+        var charge = PriceResolver.CalculatePrice(ticket, requiredPrices);
 
         return new Response<double>(charge, String.Empty, false);
     }

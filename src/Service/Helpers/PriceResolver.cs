@@ -14,7 +14,7 @@ using ParkingSpace.Features.Ticket.Entities;
 
 namespace ParkingSpace.Helpers;
 
-public static class PriceHelper {
+public static class PriceResolver {
     public static double CalculatePrice(Ticket ticket, List<Price> prices) {
         double totalTimeSpent = ((ticket.CompletedAt - ticket.StartedAt)!).Value.TotalHours;
         double accumulatedTime = 0;
