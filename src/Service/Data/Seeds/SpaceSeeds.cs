@@ -68,28 +68,33 @@ public static class SpaceSeeds {
                 Prices = new List<Price> {
                     // Stadium Motorcycle prices
                     new Price {
-                        Description = "STADIUM(Motorcycle) - 4 Hours",
+                        Description = "STADIUM(Motorcycles/Scooters) - 4 Hours",
+                        ChargeModel = PriceModel.FlatRate,
                         MaximumTime = 4,
                         Amount = 30,
                         VehicleType = new List<VehicleType> {
-                            VehicleType.Motorcycle
+                            VehicleType.Motorcycle,
+                            VehicleType.Scooter
                         }
                     },
                     new Price {
-                        Description = "STADIUM(Motorcycle) - 12 Hours",
+                        Description = "STADIUM(Motorcycles/Scooters) - 12 Hours",
+                        ChargeModel = PriceModel.FlatRate,
                         MaximumTime = 12,
                         Amount = 60,
                         VehicleType = new List<VehicleType> {
-                            VehicleType.Motorcycle
+                            VehicleType.Motorcycle,
+                            VehicleType.Scooter
                         }
                     },
                     new Price {
-                        Description = "STADIUM(Motorcycle) - Above 12 Hours",
+                        Description = "STADIUM(Motorcycles/Scooters) - Above 12 Hours",
                         ChargeModel = PriceModel.PerInfinityHour,
                         MaximumTime = 12,
                         Amount = 100,
                         VehicleType = new List<VehicleType> {
-                            VehicleType.Motorcycle
+                            VehicleType.Motorcycle,
+                            VehicleType.Scooter
                         }
                     },
                     // Stadium Car/SUV prices

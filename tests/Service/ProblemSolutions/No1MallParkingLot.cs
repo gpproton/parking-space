@@ -125,7 +125,7 @@ Vehicle: {ticket!.Vehicle!.RegistrationNo}
 Ticket Number: {ticket.TicketNumber}
 Spot Number: {ticket.SpotPosition}
 Entry Date-time: {ticket.StartedAt}
-Entry Date-time: {ticket.CompletedAt}
+Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
     }
@@ -153,7 +153,7 @@ Vehicle: {ticket!.Vehicle!.RegistrationNo}
 Ticket Number: {ticket.TicketNumber}
 Spot Number: {ticket.SpotPosition}
 Entry Date-time: {ticket.StartedAt}
-Entry Date-time: {ticket.CompletedAt}
+Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
     }
@@ -174,6 +174,7 @@ Fee: {ticket.Amount}
         var ticket = (await _ticket.UnParkVehicleAsync(park)).Data;
 
         if (ticket is null) return;
+        
         _output.WriteLine($@"
 Parking Ticket:
 ==============
@@ -181,9 +182,15 @@ Vehicle: {ticket!.Vehicle!.RegistrationNo}
 Ticket Number: {ticket.TicketNumber}
 Spot Number: {ticket.SpotPosition}
 Entry Date-time: {ticket.StartedAt}
-Entry Date-time: {ticket.CompletedAt}
+Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
     }
     
+    [Fact]
+    public async Task No5ClearData() {
+        await _ticket!.ClearAsync();
+        await _vehicle!.ClearAsync();
+        await _spot!.ClearAsync();
+    }
 }

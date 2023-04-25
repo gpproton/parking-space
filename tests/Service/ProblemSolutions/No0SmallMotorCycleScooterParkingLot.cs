@@ -163,7 +163,7 @@ Vehicle: {ticket!.Vehicle!.RegistrationNo}
 Ticket Number: {ticket.TicketNumber}
 Spot Number: {ticket.SpotPosition}
 Entry Date-time: {ticket.StartedAt}
-Entry Date-time: {ticket.CompletedAt}
+Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
             }
@@ -208,7 +208,7 @@ Vehicle: {ticket!.Vehicle!.RegistrationNo}
 Ticket Number: {ticket.TicketNumber}
 Spot Number: {ticket.SpotPosition}
 Entry Date-time: {ticket.StartedAt}
-Entry Date-time: {ticket.CompletedAt}
+Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
             }
