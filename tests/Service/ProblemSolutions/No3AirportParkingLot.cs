@@ -20,10 +20,10 @@ namespace ParkingSpace.Tests.ProblemSolutions;
 
 public class No3AirportParkingLot : BaseTicketTest {
     public No3AirportParkingLot(ServiceFactory factory, ITestOutputHelper output) : base(factory, output) { }
-    
+
     private async Task<Space> GetSpace() =>
     (await Space!.GetByDescriptionAsync("AIRPORT")).Data!;
-    
+
     [Fact]
     public async Task No0CreateSpots() {
         var space = await this.GetSpace();
@@ -64,7 +64,7 @@ public class No3AirportParkingLot : BaseTicketTest {
             space.Spots.Add(spot);
         await Space!.UpdateAsync(space);
     }
-    
+
     [Fact]
     public async Task No1CreateVehicles() {
         await Vehicle!.AddRangeAsync(new List<Vehicle> {
@@ -94,103 +94,103 @@ public class No3AirportParkingLot : BaseTicketTest {
             }
         });
     }
-    
+
     [Fact]
     public async Task No2MotorcycleParked55Minutes() {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("motorcycle-00");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Now.AddMinutes(-55);
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await Ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
-        
+
         park.CompletedAt = DateTimeOffset.Now;
         var ticket = (await Ticket.UnParkVehicleAsync(park)).Data;
         this.PrintTicket(ticket);
         Assert.Equal(0, ticket!.Amount);
     }
-    
+
     [Fact]
     public async Task No3MotorcycleParked14Hours59Minutes() {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("motorcycle-01");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Now.AddHours(-14).AddMinutes(-59);
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await Ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
-        
+
         park.CompletedAt = DateTimeOffset.Now;
         var ticket = (await Ticket.UnParkVehicleAsync(park)).Data;
         this.PrintTicket(ticket);
         Assert.Equal(60, ticket!.Amount);
     }
-    
+
     [Fact]
     public async Task No4MotorcycleParked1Day12Hours() {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("motorcycle-02");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Now.AddDays(-1).AddHours(-12);
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await Ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
-        
+
         park.CompletedAt = DateTimeOffset.Now;
         var ticket = (await Ticket.UnParkVehicleAsync(park)).Data;
         this.PrintTicket(ticket);
         Assert.Equal(160, ticket!.Amount);
     }
-    
+
     [Fact]
     public async Task No5CarParked50Minutes() {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("car-00");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Now.AddMinutes(-50);
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await Ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
-        
+
         park.CompletedAt = DateTimeOffset.Now;
         var ticket = (await Ticket.UnParkVehicleAsync(park)).Data;
         this.PrintTicket(ticket);
         Assert.Equal(60, ticket!.Amount);
     }
-    
+
     [Fact]
     public async Task No6SuvParked23Hours59Minutes() {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("suv-00");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Now.AddHours(-23).AddMinutes(-59);
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await Ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
-        
+
         park.CompletedAt = DateTimeOffset.Now;
         var ticket = (await Ticket.UnParkVehicleAsync(park)).Data;
         this.PrintTicket(ticket);
         Assert.Equal(80, ticket!.Amount);
     }
-    
+
     [Fact]
     public async Task No7CarParked3Days1Hours() {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("car-01");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Now.AddDays(-3).AddHours(-1);
         var options = new SpotVehicleParams(space, vehicle.Data, time);
         var park = (await Ticket!.ParkVehicleAsync(options)).Data;
         if (park is null) return;
-        
+
         park.CompletedAt = DateTimeOffset.Now;
         var ticket = (await Ticket.UnParkVehicleAsync(park)).Data;
         this.PrintTicket(ticket);

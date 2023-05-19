@@ -20,7 +20,7 @@ public static class PriceResolver {
         double accumulatedTime = 0;
         double accumulatedCharge = 0;
         double totalDaysSpent = totalTimeSpent / 24;
-        
+
         // Rate filters
         var flatRatePrices = prices.Where(x => x.ChargeModel.Equals(PriceModel.FlatRate)).OrderBy(x => x.MaximumTime);
         var hourlyRatePrices = prices.FirstOrDefault(x => x.ChargeModel.Equals(PriceModel.PerInfinityHour));

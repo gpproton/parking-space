@@ -1,1 +1,28 @@
-<p>index works!</p>
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Spots</h1>
+    <a href="#" routerLink="/post/create/" class="btn btn-success">New Spot</a>
+  </div>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>Tag</th>
+      <th>Maximum Spot</th>
+      <th>Available Spot</th>
+      <th>Vehicle Types</th>
+      <th>Active</th>
+      <th width="220px">Actions</th>
+    </tr>
+    <tr *ngFor="let spot of spots">
+      <td>{{ spot.tag }}</td>
+      <td>{{ spot.maximumSpot }}</td>
+      <td>{{ spot.availableSpot }}</td>
+      <td>{{ spot.vehicleType }}</td>
+      <td>{{ spot.active }}</td>
+      <td class="">
+        <a href="#" [routerLink]="['/space/', spot.id, 'view']" class="btn btn-info">View</a>
+        <a href="#" [routerLink]="['/space/', spot.id, 'edit']" class="btn btn-primary">Edit</a>
+      </td>
+    </tr>
+  </table>
+</div>
