@@ -1,0 +1,6 @@
+﻿services:
+  parkingspace:
+    image: ghcr.io/gpproton/parking-space
+    build:
+      context: .
+      dockerfile: src/Service/Dockerfile

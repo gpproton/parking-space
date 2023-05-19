@@ -39,7 +39,7 @@ public abstract class BaseTicketTest {
 
     protected void PrintTicket(Ticket? ticket) {
         if (ticket is null) return;
-            Output.WriteLine($@"
+        Output.WriteLine($@"
 Parking Ticket:
 ==============
 Vehicle: {ticket!.Vehicle!.RegistrationNo}
@@ -50,7 +50,7 @@ Exit Date-time: {ticket.CompletedAt}
 Fee: {ticket.Amount}
 ");
     }
-    
+
     [Fact]
     public async Task No99ClearData() {
         await Ticket!.ClearAsync();

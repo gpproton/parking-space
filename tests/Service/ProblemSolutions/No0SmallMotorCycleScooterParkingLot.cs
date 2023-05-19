@@ -66,7 +66,7 @@ public class No0SmallMotorCycleScooterParkingLot : BaseTicketTest {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("motorcycle-00");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Parse("29-May-2022 14:04:07");
         var option = new SpotVehicleParams(space, vehicle.Data, time);
         var ticket = (await Ticket!.ParkVehicleAsync(option)).Data;
@@ -79,7 +79,7 @@ public class No0SmallMotorCycleScooterParkingLot : BaseTicketTest {
         var space = await this.GetSpace();
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("scooter-00");
         if (vehicle.Data is null) return;
-        
+
         var time = DateTimeOffset.Parse("29-May-2022 14:44:07");
         var option = new SpotVehicleParams(space, vehicle.Data, time);
         var ticket = (await Ticket!.ParkVehicleAsync(option)).Data;
@@ -99,14 +99,14 @@ public class No0SmallMotorCycleScooterParkingLot : BaseTicketTest {
 
         Output.WriteLine(ticket.Message);
         Assert.Equal("No space available", ticket.Message);
-        
+
     }
 
     [Fact]
     public async Task No5UnParkScooter00Test() {
         var vehicle = await Vehicle!.GetByRegistrationNoAsync("scooter-00");
         if (vehicle.Data is null) return;
-        
+
         var pending = (await Ticket!.GetActiveByVehicleAsync(vehicle.Data)).Data;
         pending!.CompletedAt = DateTimeOffset.Parse("29-May-2022 15:40:07");
         var ticket = (await Ticket.UnParkVehicleAsync(pending)).Data;

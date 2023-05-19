@@ -1,5 +1,5 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
-// 
+//
 // Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
@@ -12,11 +12,10 @@ using ParkingSpace.Enums;
 using ParkingSpace.Features.Price.Entities;
 using ParkingSpace.Features.Space.Entities;
 
-namespace ParkingSpace.Data.Seeds;
-
-public static class SpaceSeeds {
-    public static IEnumerable<Space> GetSpaces() {
-        return new List<Space> {
+namespace ParkingSpace.Data.Seeds {
+    public static class SpaceSeeds {
+        public static IEnumerable<Space> GetSpaces() {
+            return new List<Space> {
             // MALL spots & prices
             new Space {
                 Active = true,
@@ -204,5 +203,6 @@ public static class SpaceSeeds {
                 }
             }
         };
+        }
     }
 }

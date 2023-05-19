@@ -38,7 +38,7 @@ public class PriceResolverTests {
 
         var prices = spaces!.Prices.Where(x => x.VehicleType.Contains(vehicle.Type)).ToList();
         var amount = PriceResolver.CalculatePrice(ticket, prices);
-        
+
         Assert.Equal(30, amount);
         await Task.Delay(5);
     }
