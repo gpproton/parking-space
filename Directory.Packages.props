@@ -4,22 +4,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(DotnetVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(DotnetVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(DotnetVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(DotnetVersion)" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspCoreVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="$(AspCoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfcoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Abstractions" Version="$(EfcoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfcoreVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(EfcoreVersion)" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="$(SwaggerVersion)" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Swagger" Version="$(SwaggerVersion)" />
     <PackageVersion Include="Swashbuckle.AspNetCore.ReDoc" Version="$(SwaggerVersion)" />
-    <PackageVersion Include="AspNetCore.SpaYarp" Version="1.1.0" />
+    <PackageVersion Include="AspNetCore.SpaYarp" Version="2.0.0" />
   </ItemGroup>
 
   <!-- Test packages -->
   <ItemGroup>
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
-    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(DotnetVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspCoreVersion)" />
     <PackageVersion Include="xunit" Version="2.4.1" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.3" />
     <PackageVersion Include="coverlet.collector" Version="3.1.2" />

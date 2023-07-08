@@ -21,13 +21,14 @@ if (app.Environment.IsDevelopment())
     .UseSwaggerUI(opt => {
         const string path = "/swagger/v1/swagger.json";
         opt.SwaggerEndpoint(path, "Parking Space V1 Docs");
-        opt.DefaultModelExpandDepth(3);
-        opt.EnableDeepLinking();
-        opt.DisplayRequestDuration();
-        opt.ShowExtensions();
     });
 else app.UseHsts();
-app.UseReDoc();
+
+const string swaggerTittle = "Parking Space V1 Docs";
+app.UseReDoc(c => {
+    c.DocumentTitle = swaggerTittle;
+});
+
 app.UseAuthorization();
 app.MapControllers();
 app.UseHttpsRedirection();

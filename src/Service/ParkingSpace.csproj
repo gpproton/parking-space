@@ -1,9 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <!-- client configuration  -->
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
@@ -20,6 +17,7 @@
       <!-- The SPA Proxy is only used at development time -->
       <Publish>false</Publish>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
@@ -28,7 +26,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" />
     <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" />
   </ItemGroup>
 
