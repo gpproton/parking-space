@@ -1,5 +1,5 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
-// 
+//
 // Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
@@ -28,7 +28,6 @@ public class MainContext : DbContext {
         foreach (var entityType in modelBuilder.Model.GetEntityTypes()) { }
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(MainContext).Assembly);
-        // this.ChangeTracker.LazyLoadingEnabled = false;
         base.OnModelCreating(modelBuilder);
     }
 

@@ -15,14 +15,16 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>10</LangVersion>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
-    <DotnetVersion>6.0.16</DotnetVersion>
+    <AspCoreVersion>8.0.0-preview.5.23302.2</AspCoreVersion>
+    <DotnetVersion>8.0.0-preview.5.23280.8</DotnetVersion>
+    <EfcoreVersion>8.0.0-preview.5.23280.1</EfcoreVersion>
     <SwaggerVersion>6.5.0</SwaggerVersion>
   </PropertyGroup>
 
