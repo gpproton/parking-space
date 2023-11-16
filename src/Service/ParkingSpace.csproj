@@ -4,6 +4,7 @@
     <!-- client configuration  -->
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <AssemblyName>parking-space</AssemblyName>
     <IsPackable>false</IsPackable>
     <SpaRoot>..\..\client\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>

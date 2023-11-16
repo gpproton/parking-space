@@ -1,6 +1,8 @@
 ﻿services:
   parkingspace:
-    image: ghcr.io/gpproton/parking-space
+    image: ghcr.io/gpproton/parking-space:0.0.1
     build:
       context: .
       dockerfile: src/Service/Dockerfile
+    ports:
+      - 8080:8080

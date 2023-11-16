@@ -1,21 +1,21 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 8080
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM node:18-alpine AS node
 
-# Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt-get install -y \
-        nodejs \
-    && rm -rf /var/lib/apt/lists/*
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
+
+COPY --from=node /usr/lib /usr/lib
+COPY --from=node /usr/local/share /usr/local/share
+COPY --from=node /usr/local/lib /usr/local/lib
+COPY --from=node /usr/local/include /usr/local/include
+COPY --from=node /usr/local/bin /usr/local/bin
 
 WORKDIR /src
-COPY ["src/Service/ParkingSpace.csproj", "src/Service/"]
-COPY ["src/Common/ParkingSpace.Common.csproj", "src/Common/"]
-RUN dotnet restore "src/Service/ParkingSpace.csproj"
 COPY . .
+RUN dotnet restore "src/Service/ParkingSpace.csproj"
 WORKDIR "/src/src/Service"
 RUN dotnet build "ParkingSpace.csproj" -c Release -o /app/build
 
@@ -25,4 +25,4 @@ RUN dotnet publish "ParkingSpace.csproj" -c Release -o /app/publish /p:UseAppHos
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ParkingSpace.dll"]
+ENTRYPOINT ["dotnet", "parking-space.dll"]
