@@ -454,3 +454,4 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 .idea
 *.sqlite3*
+client/yarn.lock
