@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MaterialModule } from './material.module';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     RouterOutlet,
     FormsModule,
     HttpClientModule,
-    MatToolbarModule],
+    MatToolbarModule,
+    MaterialModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
