@@ -16,13 +16,15 @@ builder.Services.AddSpaYarp();
 #endif
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment())
-    app.UseSwagger()
+
+ app.UseSwagger()
     .UseSwaggerUI(opt => {
         const string path = "/swagger/v1/swagger.json";
         opt.SwaggerEndpoint(path, "Parking Space V1 Docs");
     });
-else app.UseHsts();
+
+if (!app.Environment.IsDevelopment())
+    app.UseHsts();
 
 const string swaggerTittle = "Parking Space V1 Docs";
 app.UseReDoc(c => {

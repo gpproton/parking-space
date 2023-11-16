@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Title>Parking Space</Title>
     <Version>0.1</Version>
-    <Authors>radioActive DROID</Authors>
+    <Authors>Godwin peter .O</Authors>
     <Description>A sample parking lot management platform</Description>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Parking, Vehicle</PackageTags>
@@ -22,9 +22,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AspCoreVersion>8.0.0-preview.5.23302.2</AspCoreVersion>
-    <DotnetVersion>8.0.0-preview.5.23280.8</DotnetVersion>
-    <EfcoreVersion>8.0.0-preview.5.23280.1</EfcoreVersion>
+    <AspCoreVersion>8.0.0</AspCoreVersion>
+    <DotnetVersion>8.0.0</DotnetVersion>
+    <EfcoreVersion>8.0.0</EfcoreVersion>
     <SwaggerVersion>6.5.0</SwaggerVersion>
   </PropertyGroup>
 
