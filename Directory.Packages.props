@@ -1,6 +1,10 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AspCoreVersion>8.0.0</AspCoreVersion>
+    <DotnetVersion>8.0.0</DotnetVersion>
+    <EfcoreVersion>8.0.0</EfcoreVersion>
+    <SwaggerVersion>6.5.0</SwaggerVersion>
   </PropertyGroup>
 
   <ItemGroup>

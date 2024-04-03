@@ -3,20 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{37B23DD2-DA19-4CB2-91E6-AE58B3C88F07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace", "Service\ParkingSpace.csproj", "{F5818A4A-25A9-4E55-B650-50B0D32B3ED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace.Common", "src\Common\ParkingSpace.Common.csproj", "{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace.Common", "Common\ParkingSpace.Common.csproj", "{34B89D1B-CB67-4403-9F1C-538EB09EA55B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace", "src\Service\ParkingSpace.csproj", "{BB542898-6912-4433-A4C8-04BA000F8325}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F2C246AA-2E71-44C3-9E96-A5B9FDBAA9D6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8CCDCB01-3302-4031-8258-2E37A77CDE9E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace.Tests", "tests\Service\ParkingSpace.Tests.csproj", "{5BCB2E24-DD71-42D9-964A-EC047ED20A33}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6955CB93-4F2D-4B0C-A466-780D9828B79D}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingSpace.Tests", "tests\Service\ParkingSpace.Tests.csproj", "{10DCF441-0143-4DF6-A8E3-8FB353C3A7C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,22 +20,20 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BB542898-6912-4433-A4C8-04BA000F8325}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BB542898-6912-4433-A4C8-04BA000F8325}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BB542898-6912-4433-A4C8-04BA000F8325}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BB542898-6912-4433-A4C8-04BA000F8325}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BCB2E24-DD71-42D9-964A-EC047ED20A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5818A4A-25A9-4E55-B650-50B0D32B3ED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5818A4A-25A9-4E55-B650-50B0D32B3ED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5818A4A-25A9-4E55-B650-50B0D32B3ED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5818A4A-25A9-4E55-B650-50B0D32B3ED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34B89D1B-CB67-4403-9F1C-538EB09EA55B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34B89D1B-CB67-4403-9F1C-538EB09EA55B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34B89D1B-CB67-4403-9F1C-538EB09EA55B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34B89D1B-CB67-4403-9F1C-538EB09EA55B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DCF441-0143-4DF6-A8E3-8FB353C3A7C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DCF441-0143-4DF6-A8E3-8FB353C3A7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DCF441-0143-4DF6-A8E3-8FB353C3A7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DCF441-0143-4DF6-A8E3-8FB353C3A7C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EB069C2B-0F65-4CBA-AD89-9AA3CA939F23} = {37B23DD2-DA19-4CB2-91E6-AE58B3C88F07}
-		{BB542898-6912-4433-A4C8-04BA000F8325} = {37B23DD2-DA19-4CB2-91E6-AE58B3C88F07}
-		{5BCB2E24-DD71-42D9-964A-EC047ED20A33} = {8CCDCB01-3302-4031-8258-2E37A77CDE9E}
+		{10DCF441-0143-4DF6-A8E3-8FB353C3A7C3} = {F2C246AA-2E71-44C3-9E96-A5B9FDBAA9D6}
 	EndGlobalSection
 EndGlobal

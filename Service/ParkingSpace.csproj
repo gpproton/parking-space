@@ -6,7 +6,7 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <AssemblyName>parking-space</AssemblyName>
     <IsPackable>false</IsPackable>
-    <SpaRoot>..\..\client\</SpaRoot>
+    <SpaRoot>..\client\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
     <SpaClientUrl>http://localhost:4200</SpaClientUrl>
     <SpaLaunchCommand>npm run start</SpaLaunchCommand>

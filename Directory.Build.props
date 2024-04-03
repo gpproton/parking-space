@@ -4,7 +4,7 @@
     <Title>Parking Space</Title>
     <Version>0.1</Version>
     <Authors>Godwin peter .O</Authors>
-    <Description>A sample parking lot management platform</Description>
+    <Description>A parking space management platform</Description>
     <RepositoryType>git</RepositoryType>
     <PackageTags>Parking, Vehicle</PackageTags>
     <LicenseFile>$(MSBuildThisFileDirectory)LICENSE</LicenseFile>
@@ -18,14 +18,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <LangVersion>preview</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <AspCoreVersion>8.0.0</AspCoreVersion>
-    <DotnetVersion>8.0.0</DotnetVersion>
-    <EfcoreVersion>8.0.0</EfcoreVersion>
-    <SwaggerVersion>6.5.0</SwaggerVersion>
+    <LangVersion>11</LangVersion>
   </PropertyGroup>
 
 </Project>

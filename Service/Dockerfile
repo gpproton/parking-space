@@ -3,7 +3,7 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 443
 
-FROM node:18-alpine AS node
+FROM node:20-alpine AS node
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 
@@ -15,8 +15,8 @@ COPY --from=node /usr/local/bin /usr/local/bin
 
 WORKDIR /src
 COPY . .
-RUN dotnet restore "src/Service/ParkingSpace.csproj"
-WORKDIR "/src/src/Service"
+RUN dotnet restore "Service/ParkingSpace.csproj"
+WORKDIR "/src/Service"
 RUN dotnet build "ParkingSpace.csproj" -c Release -o /app/build
 
 FROM build AS publish
