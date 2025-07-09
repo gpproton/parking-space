@@ -1,5 +1,5 @@
 // Copyright 2022 - 2023 Godwin peter .O (me@godwin.dev)
-// 
+//
 // Licensed under the MIT License;
 // you may not use this file except in compliance with the License.
 // Unless required by applicable law or agreed to in writing, software
@@ -27,13 +27,10 @@ public class PageFilter : IPageFilter {
     public static ValueTask<PageFilter?> BindAsync(HttpContext httpContext, ParameterInfo parameter) {
         int.TryParse(httpContext.Request.Query["page"], out var page);
         int.TryParse(httpContext.Request.Query["page-size"], out var pageSize);
+        httpContext.Request.Query.TryGetValue("search", out var search);
 
         return ValueTask.FromResult<PageFilter?>(
-            new PageFilter(
-                page == 0 ? 1 : page,
-                pageSize == 0 ? 10 : pageSize,
-                httpContext.Request.Query["search"]
-            )
+            new PageFilter(page == 0 ? 1 : page, pageSize == 0 ? 10 : pageSize, search.ToString())
         );
     }
 }
