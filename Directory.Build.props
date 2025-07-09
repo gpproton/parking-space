@@ -22,10 +22,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AspCoreVersion>9.0.0</AspCoreVersion>
+    <AspCoreVersion>9.0.7</AspCoreVersion>
     <DotnetVersion>9.0.0</DotnetVersion>
-    <EfcoreVersion>9.0.0</EfcoreVersion>
-    <SwaggerVersion>6.5.0</SwaggerVersion>
+    <EfcoreVersion>9.0.7</EfcoreVersion>
+    <SwaggerVersion>9.0.3</SwaggerVersion>
   </PropertyGroup>
 
 </Project>

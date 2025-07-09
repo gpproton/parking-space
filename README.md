@@ -1,22 +1,21 @@
 # Parking Space
 
-A sample project to showcase using dotnet 6.0 web API project with common software development priciples
+A basic project to showcase using dotnet 9.0 web API project with common software development priciples
 such as SOLID, YAGNI, KISS etc, and basic understanding of angular framework.
 
 ## Features on project
-* Swagger docs (prod: /api-docs, development: /swagger)
-* Xunit tests ticket prices
-* Asp.net Core SPA Proxy from angular
-* Basic Angular sample (Space, Price)
-* API Response status
-* Additional backend development best pratices (services, repository, entity configuration)
+
+- Swagger docs (prod: /api-docs, development: /swagger)
+- Xunit tests ticket prices
+- Asp.net Core SPA Proxy from angular
+- Basic Angular sample (Space, Price)
+- API Response status
+- Additional backend development best pratices (services, repository, entity configuration)
 
 ## Requirements
 
-* dotnet: 6.0.300
-* nodejs: V14
-* npm: v6
-
+- dotnet: 9.0.300
+- bun: v1.2
 
 ## Tests
 
@@ -69,11 +68,9 @@ Exit Date-time: 4/25/2023 1:28:24PM +01:00
 Fee: 160
 ```
 
-
 ## Backend Entities
 
 ![Entities](./docs/entities.png)
-
 
 ## Sample Angular API Usage
 
